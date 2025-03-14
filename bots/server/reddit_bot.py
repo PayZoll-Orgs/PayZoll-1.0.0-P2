@@ -301,4 +301,4 @@ async def hello(ctx):
     await ctx.send(f"Hello, {ctx.author.name}!")
 
 # Run the bot
-bot.run('MTM0ODQ0NTgwNjM3MzM3NjAyMA.G5x2IW.K13fRi_OUsTzCOQ9X8vX6CwKIBd500nkUGF9lI')  # Replace 'YOUR_BOT_TOKEN' with your actual bot token
+bot.run(os.getenv('REDDIT_BOT_TOKEN')) 

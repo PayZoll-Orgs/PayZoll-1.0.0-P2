@@ -532,4 +532,4 @@ async def hello(ctx):
     await ctx.send(f"Hello, {ctx.author.name}!")
 
 # Run the bot
-bot.run('MTM0ODQ2MzI5OTU3ODE3MTQ0Mg.GkwKP2.45hkmaA5VeBcb25-dQqroGw4er3Nig2_M84RuA')  # Replace 'YOUR_BOT_TOKEN' with your actual bot token
+bot.run(os.getenv('DISCORD_BOT_TOKEN'))  
