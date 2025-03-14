@@ -2,7 +2,7 @@
 
 Welcome to **PayZoll**, a groundbreaking decentralized payroll platform that redefines how businesses pay their workforce. Powered by blockchain innovation and cutting-edge AI, PayZoll delivers lightning-fast, secure, and scalable payroll solutions—bridging the gap between Web2 simplicity and Web3 potential. From global enterprises to nimble startups, PayZoll is your gateway to a payroll revolution.
 
-**Deployed Live**: [PayZoll](https://payzoll-hackathon-build-1.onrender.com/)  
+**Deployed Live**: [PayZoll](https://payzoll-1-0-0.onrender.com/)  
 **Star us on GitHub**: Give us a ⭐ to join the payroll revolution!
 
 ---
@@ -48,11 +48,6 @@ PayZoll’s journey is a testament to relentless innovation. Here’s how we’v
     └── 🤖 Built AI Payroll Agent: A game-changer for data processing and UX.
 ```
 
-## 🌐 Try PayZoll Now
-
-See the magic in action: [Live Demo](https://payzoll-hackathon-build-1.onrender.com/)
-
----
 
 ## 🛠️ Get Started Locally
 
@@ -155,8 +150,6 @@ Love PayZoll? Here’s how to contribute:
 3. Commit your brilliance (`git commit -m "Added magic"`).
 4. Push it (`git push origin feature/amazing-idea`).
 5. Open a Pull Request!
-
-Chat with us on [GitHub Discussions](https://github.com/PayZoll/PayZoll_Hackathon_Build/discussions).
 
 ---
 
