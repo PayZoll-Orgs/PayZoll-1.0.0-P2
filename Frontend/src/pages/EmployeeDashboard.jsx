@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
-  Bell
+  Bell,
+  Wallet,
+  LogOut,
+  ChevronDown,
+  Activity,
+  Sparkles
 } from "lucide-react";
 import QuickPanel from "../components/employee/QuickPanel";
 import EmployeeOverview from "../components/employee/EmployeeOverview";
@@ -15,103 +20,145 @@ import axios from "axios";
 import { backendDomain } from "../constant/domain";
 import TokenBridgeSection from "../components/TokenBridgeSection";
 
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -20 }
+};
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
+
 export default function EmployeeDashboard() {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const { provider, signer, account } = useWeb3();
   const [employeeInfo, setEmployeeInfo] = useState(undefined);
   const [employeeTokenInfo, setEmployeeTokenInfo] = useState(undefined);
-  const [employeeHistoryInfo, setEmployeeHostoryInfo] = useState(undefined);
+  const [employeeHistoryInfo, setEmployeeHistoryInfo] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.setItem("token", null);
     navigate("/auth?mode=login");
   };
 
   const getEmployeeInfo = async () => {
-    const token = localStorage.getItem("token");
-    const response = await axios.get(`${backendDomain}/employee`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    console.log(response.data.employee);
-    setEmployeeInfo(response.data.employee);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${backendDomain}/employee`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setEmployeeInfo(response.data.employee);
+    } catch (error) {
+      console.error("Error fetching employee info:", error);
+    }
   };
 
   const getEmployeeTokenInfo = async () => {
-    const token = localStorage.getItem("token");
-    const response = await axios.get(`${backendDomain}/employee/token`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    console.log(response.data.token);
-    setEmployeeTokenInfo(response.data.token);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${backendDomain}/employee/token`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setEmployeeTokenInfo(response.data.token);
+    } catch (error) {
+      console.error("Error fetching token info:", error);
+    }
   };
 
   const getEmployeePayrollHistory = async () => {
-    const token = localStorage.getItem("token");
-    const response = await axios.get(`${backendDomain}/employee/payroll`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    console.log(response.data.payroll);
-    setEmployeeHostoryInfo(response.data.payroll);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${backendDomain}/employee/payroll`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setEmployeeHistoryInfo(response.data.payroll);
+    } catch (error) {
+      console.error("Error fetching payroll history:", error);
+    }
   };
+
   useEffect(() => {
-    getEmployeeInfo();
-    getEmployeeTokenInfo();
-    getEmployeePayrollHistory();
+    const fetchData = async () => {
+      setIsLoading(true);
+      await Promise.all([
+        getEmployeeInfo(),
+        getEmployeeTokenInfo(),
+        getEmployeePayrollHistory()
+      ]);
+      setIsLoading(false);
+    };
+    fetchData();
   }, [provider, signer]);
 
-  if (
-    employeeInfo === undefined ||
-    employeeTokenInfo === undefined ||
-    employeeHistoryInfo === undefined
-  )
-    return;
+  if (isLoading || !employeeInfo || !employeeTokenInfo || !employeeHistoryInfo) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+          className="flex items-center space-x-2"
+        >
+          <Sparkles className="w-6 h-6 text-indigo-400" />
+          <span className="text-xl font-medium text-white">Loading...</span>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-crypto-dark text-white">
-      {/* Background Effects */}
-      <div className="fixed inset-0 bg-grid-pattern opacity-[0.02]"></div>
-      <div className="fixed inset-0">
-        <div className="absolute inset-0 bg-gradient-radial from-indigo-900/20 via-transparent to-transparent"></div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0">
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(99, 102, 241, 0.1) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(99, 102, 241, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '40px 40px',
+            animation: 'gradientMove 20s linear infinite'
+          }}
+        />
 
-      {/* Animated Background Orbs */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        {[...Array(3)].map((_, i) => (
+        {/* Floating particles */}
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-[500px] h-[500px] rounded-full"
-            initial={{ opacity: 0.1 }}
+            className="absolute rounded-full"
+            initial={{ x: 0, y: 0 }}
             animate={{
-              opacity: [0.1, 0.3, 0.1],
-              scale: [1, 1.2, 1],
-              x: [0, 100, 0],
-              y: [0, 50, 0],
+              x: [0, Math.random() * 100 - 50],
+              y: [0, Math.random() * 100 - 50],
             }}
             transition={{
-              duration: 10 + i * 2,
+              duration: Math.random() * 10 + 10,
               repeat: Infinity,
-              ease: "linear",
+              repeatType: "reverse",
+              ease: "linear"
             }}
             style={{
-              background: `radial-gradient(circle, ${i === 0
-                  ? "rgba(99,102,241,0.1)"
-                  : i === 1
-                    ? "rgba(139,92,246,0.1)"
-                    : "rgba(168,85,247,0.1)"
-                } 0%, transparent 70%)`,
-              left: `${i * 30}%`,
-              top: `${i * 20}%`,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              width: `${Math.random() * 4 + 2}px`,
+              height: `${Math.random() * 4 + 2}px`,
+              background: `rgba(99, 102, 241, ${Math.random() * 0.3 + 0.1})`,
             }}
           />
         ))}
@@ -120,120 +167,195 @@ export default function EmployeeDashboard() {
       {/* Main Content */}
       <div className="relative">
         {/* Header */}
-        <header className="sticky top-0 z-50 bg-crypto-dark/80 backdrop-blur-md border-b border-gray-800">
+        <motion.header
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="sticky top-0 z-50 bg-gray-900/80 backdrop-blur-xl border-b border-gray-800/50"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
               {/* Profile Section */}
-              <div className="flex items-center space-x-4">
-                <div
-                  className="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 
-                              flex items-center justify-center"
-                >
-                  {employeeInfo.name.charAt(0).toUpperCase()}
+              <motion.div
+                className="flex items-center space-x-4"
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-lg opacity-50" />
+                  <div className="relative w-12 h-12 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 flex items-center justify-center ring-2 ring-indigo-500/20">
+                    <span className="text-lg font-bold">
+                      {employeeInfo.name.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold">
+                  <motion.h1
+                    className="text-xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                  >
                     Welcome back, {employeeInfo.name}!
-                  </h1>
-                  <p className="text-sm text-gray-400">
+                  </motion.h1>
+                  <motion.p
+                    className="text-sm text-gray-400"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
                     {employeeInfo.designation}
-                  </p>
+                  </motion.p>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Actions */}
               <div className="flex items-center space-x-4">
-
-                {/*LogOut*/}
-                <button
-                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 
-                  text-white hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
-                  onClick={handleLogout}
-                >
-                  <span>LogOut</span>
-                </button>
-
                 {/* Notifications */}
-                <div className="relative">
+                <motion.div
+                  className="relative"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <button
                     onClick={() => setShowNotifications(!showNotifications)}
-                    className="p-2 rounded-lg bg-crypto-card hover:bg-crypto-card/70 transition-colors relative"
+                    className="p-3 rounded-xl bg-gray-800/50 hover:bg-gray-700/50 transition-colors relative backdrop-blur-sm border border-gray-700/50"
                   >
-                    <Bell className="w-5 h-5" />
-                    <span className="absolute top-0 right-0 w-2 h-2 bg-indigo-500 rounded-full"></span>
+                    <Bell className="w-5 h-5 text-gray-300" />
+                    <span className="absolute top-2 right-2 w-2 h-2 bg-indigo-500 rounded-full ring-2 ring-indigo-500/20" />
                   </button>
-                </div>
+                </motion.div>
 
                 {/* Wallet Connection */}
-                {account ? (
-                  <div className="px-4 py-2 rounded-lg bg-crypto-card border border-gray-800">
-                    <div className="text-sm text-gray-400">
-                      Connected Wallet
-                    </div>
-                    <div className="font-mono text-sm">{account}</div>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => setIsWalletConnected(true)}
-                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 
-                             hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
-                  >
-                    Connect Wallet
-                  </button>
-                )}
+                <AnimatePresence mode="wait">
+                  {account ? (
+                    <motion.div
+                      key="connected"
+                      {...fadeInUp}
+                      className="px-4 py-2 rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <Wallet className="w-4 h-4 text-indigo-400" />
+                        <span className="text-sm text-gray-400">Connected</span>
+                      </div>
+                      <div className="font-mono text-sm text-gray-300 truncate max-w-[150px]">
+                        {account}
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.button
+                      key="connect"
+                      {...fadeInUp}
+                      onClick={() => setIsWalletConnected(true)}
+                      className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 
+                               hover:shadow-lg hover:shadow-indigo-500/20 transition-all flex items-center space-x-2"
+                    >
+                      <Wallet className="w-4 h-4" />
+                      <span>Connect Wallet</span>
+                    </motion.button>
+                  )}
+                </AnimatePresence>
+
+                {/* Logout */}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-4 py-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 
+                           transition-all flex items-center space-x-2 border border-red-500/20"
+                  onClick={handleLogout}
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Logout</span>
+                </motion.button>
               </div>
             </div>
           </div>
-        </header>
+        </motion.header>
 
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+        {/* Main Content */}
+        <motion.main
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6"
+        >
           {/* Quick Panel */}
-          <QuickPanel isWalletConnected={account !== undefined} />
+          <motion.div variants={fadeInUp}>
+            <QuickPanel isWalletConnected={account !== undefined} />
+          </motion.div>
 
           {/* Main Grid Layout */}
           <div className="grid grid-cols-12 gap-6">
             {/* Employee Overview */}
-            <div className="col-span-12 lg:col-span-8">
+            <motion.div
+              className="col-span-12 lg:col-span-8"
+              variants={fadeInUp}
+            >
               <EmployeeOverview
                 employeeInfo={employeeInfo}
                 employeeTokenInfo={employeeTokenInfo}
                 employeeHistoryInfo={employeeHistoryInfo}
               />
-            </div>
+            </motion.div>
 
             {/* Recent Activity */}
-            <div className="col-span-12 lg:col-span-4">
+            <motion.div
+              className="col-span-12 lg:col-span-4"
+              variants={fadeInUp}
+            >
               <RecentActivity
                 employeeInfo={employeeInfo}
                 employeeTokenInfo={employeeTokenInfo}
               />
-            </div>
+            </motion.div>
 
             {/* Payment Section */}
-            <div className="col-span-12 lg:col-span-6">
+            <motion.div
+              className="col-span-12 lg:col-span-6"
+              variants={fadeInUp}
+            >
               <PaymentSection
                 employeeHistoryInfo={employeeHistoryInfo}
                 employeeInfo={employeeInfo}
               />
-            </div>
+            </motion.div>
 
             {/* ESOP Section */}
-            <div className="col-span-12 lg:col-span-6">
+            <motion.div
+              className="col-span-12 lg:col-span-6"
+              variants={fadeInUp}
+            >
               <ESOPSection employeeTokenInfo={employeeTokenInfo} />
-            </div>
+            </motion.div>
 
             {/* Token Bridge Section */}
-            <div className="col-span-12 lg:col-span-6">
+            <motion.div
+              className="col-span-12"
+              variants={fadeInUp}
+            >
               <TokenBridgeSection employeeTokenInfo={employeeTokenInfo} />
-            </div>
+            </motion.div>
 
             {/* Analytics Section */}
-            <div className="col-span-12">
+            <motion.div
+              className="col-span-12"
+              variants={fadeInUp}
+            >
               <AnalyticsSection />
-            </div>
+            </motion.div>
           </div>
-        </main>
+        </motion.main>
       </div>
+
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes gradientMove {
+          0% { background-position: 0 0; }
+          100% { background-position: 40px 40px; }
+        }
+      `}</style>
     </div>
   );
 }

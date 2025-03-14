@@ -15,7 +15,6 @@ const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/employer/dashboard" },
   { icon: Users, label: "Employees", path: "/employer/employees" },
   { icon: BadgeDollarSign, label: "Payments", path: "/employer/payments" },
-  { icon: Bot, label: "PayZoll Agent", path: "/employer/agent" },
   { icon: Award, label: "ESOPS/RSU", path: "/employer/esops" },
   { icon: Settings, label: "Settings", path: "/employer/settings" },
 ];
@@ -42,11 +41,17 @@ export default function Sidebar({
               PayZoll
             </h1>
           </Link>
-          <Link
+          {/* <Link
             to="https://web-agent-client.onrender.com"
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
+            className="text-center font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
           >
-            Payroll Agent
+            PayZoll Agent
+          </Link> */}
+          <Link
+            to="./botintro"
+            className="text-center font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
+          >
+            PayZoll Agent
           </Link>
         </div>
 

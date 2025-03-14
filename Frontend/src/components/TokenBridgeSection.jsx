@@ -366,7 +366,7 @@ export default function TokenBridgeSection({ employeeTokenInfo }) {
   };
   
   return (
-    <div className="bg-crypto-card rounded-xl p-6 border border-gray-800 space-y-6">
+    <div className="bg-crypto-card rounded-xl p-6 border border-gray-800 space-y-6 min-w-full">
       <h2 className="text-xl font-bold flex items-center">
         <span className="mr-2">🌉</span> Bridge Your Tokens
       </h2>

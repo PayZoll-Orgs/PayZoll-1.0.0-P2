@@ -19,7 +19,7 @@ export default function PaymentSection({ employeeHistoryInfo, employeeInfo }) {
   ];
 
   return (
-    <div className="bg-crypto-card border border-gray-800 rounded-xl p-6 hover:border-indigo-500/50 transition-all">
+    <div className="bg-crypto-card border border-gray-800 rounded-xl p-6 hover:border-indigo-500/50 transition-all h-full">
       <h2 className="text-xl font-bold mb-6">Payments</h2>
 
       {/* Upcoming Payments */}
