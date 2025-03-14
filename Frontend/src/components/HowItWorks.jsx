@@ -61,7 +61,7 @@ const StepsAnimation = () => {
   }, [steps.length, isHovered]);
 
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+    <section id="how-it-works" className="py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0">
         <div

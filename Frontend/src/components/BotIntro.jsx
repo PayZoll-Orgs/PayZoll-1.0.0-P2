@@ -72,17 +72,17 @@ function BotIntro() {
                     </div>
 
                     <h1 className="text-6xl font-bold text-white mb-6 leading-tight">
-                        Meet Your New{' '}
+                        Meet the new {' '}
                         <span className="relative">
                             <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                                AI Assistant
+                                PayZoll Agent
                             </span>
                             <span className="absolute -bottom-2 left-0 right-0 h-[2px] bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-50" />
                         </span>
                     </h1>
 
                     <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-12">
-                        Powered by advanced artificial intelligence, ready to assist you with any task, anytime.
+                        Powered by advanced artificial intelligence, ready to assist you with any payroll tasks, anytime.
                     </p>
 
                     <div className="relative inline-block">
