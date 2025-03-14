@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Wallet2, Twitter, Linkedin, Github, Mail, ArrowRight, Globe, Shield, Layers, ChevronUp } from "lucide-react";
+import { Wallet2, Twitter, Linkedin, Github, Mail, ArrowRight, Globe, Shield, Layers, ChevronUp, Instagram, Send } from "lucide-react";
 
 export default function Footer() {
   const [hoverState, setHoverState] = useState({
@@ -102,14 +102,17 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               {[
-                { icon: Twitter, href: "#twitter" },
-                { icon: Linkedin, href: "#linkedin" },
-                { icon: Github, href: "#github" },
-                { icon: Mail, href: "#contact" }
+                { icon: Twitter, href: "https://x.com/i/flow/login?redirect_after_login=%2FPayZoll", label: "Twitter" },
+                { icon: Linkedin, href: "https://www.linkedin.com/company/payzoll/", label: "LinkedIn" },
+                { icon: Instagram, href: "https://www.instagram.com/_payzoll_/?igsh=c3UyODlqMXg2dnJr", label: "Instagram" },
+                { icon: Send, href: "https://t.me/+HgwcGg7vPVc5MWI1", label: "Telegram" }
               ].map((social, index) => (
                 <a
                   key={index}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
                   className="w-10 h-10 rounded-full bg-gray-800 hover:bg-indigo-600 flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                 >
                   <social.icon className="h-5 w-5 text-gray-400 group-hover:text-white transition-colors" />
@@ -171,6 +174,32 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+        </div>
+
+        {/* Contact emails section */}
+        <div className="mt-16 pt-8 border-t border-gray-800">
+          <h3 className="text-white font-semibold mb-6 text-lg">Contact Us</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { email: "founder@payzoll.in", title: "Founder" },
+              { email: "tech@payzoll.in", title: "Technical Support" },
+              { email: "marketing@payzoll.in", title: "Marketing" },
+              { email: "hr@payzoll.in", title: "Human Resources" }
+            ].map((contact, index) => (
+              <div key={index} className="group">
+                <a
+                  href={`mailto:${contact.email}`}
+                  className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
+                >
+                  <Mail className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                  <div>
+                    <p className="font-medium">{contact.title}</p>
+                    <p className="text-sm text-gray-500 group-hover:text-gray-300">{contact.email}</p>
+                  </div>
+                </a>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Bottom section */}

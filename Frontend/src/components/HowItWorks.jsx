@@ -192,10 +192,10 @@ const StepsAnimation = () => {
                         {/* Animated rings */}
                         <div className="absolute inset-0 -z-10">
                           <div className="absolute inset-0 animate-ping opacity-20">
-                            <div className={`w-full h-full rounded-full bg-gradient-to-r ${step.highlight}`} />
+                            <div className={`w-[75%] h-[75%] rounded-full bg-gradient-to-r ${step.highlight}`} />
                           </div>
                           <div className="absolute inset-0 animate-pulse opacity-10">
-                            <div className={`w-full h-full rounded-full bg-gradient-to-r ${step.highlight}`} />
+                            <div className={`w-[75%] h-[75%] rounded-full bg-gradient-to-r ${step.highlight}`} />
                           </div>
                         </div>
                       </div>
