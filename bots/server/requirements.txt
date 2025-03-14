@@ -1,0 +1,11 @@
+flask
+openai==0.28.0
+tweepy
+praw
+web3
+python-dotenv
+flask-cors
+gunicorn
+discord
+tweepy
+twython
