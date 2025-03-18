@@ -1,4 +1,5 @@
 # PayZoll: The Future of Decentralized Payroll 🌍💸
+P1- Production build one.
 
 Welcome to **PayZoll**, a groundbreaking decentralized payroll platform that redefines how businesses pay their workforce. Powered by blockchain innovation and cutting-edge AI, PayZoll delivers lightning-fast, secure, and scalable payroll solutions—bridging the gap between Web2 simplicity and Web3 potential. From global enterprises to nimble startups, PayZoll is your gateway to a payroll revolution.
 
