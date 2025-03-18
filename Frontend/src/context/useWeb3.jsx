@@ -62,7 +62,7 @@ export const Web3Provider = ({ children }) => {
 
     const handleChainChanged = () => {
       // Refresh the page to reinitialize the app
-      window.location.reload();
+      // window.location.reload();
     };
 
     initWeb3();
