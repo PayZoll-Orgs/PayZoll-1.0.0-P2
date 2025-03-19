@@ -55,7 +55,7 @@ export const CHAINS = [
         rpcUrl: "https://rpc.edu-chain.raas.gelato.cloud/66a13f09ceab49998f954e7bb71c7c02",
         contractAddress: "0xYourContractAddressOnEduchainMainnet",
         tokens: [
-            { symbol: "EDU", address: "0xf263292e14d9d8ecd55b58dad1f1df825a874b7c", decimals: 18 },
+            { symbol: "EDU", address: "0x0000000000000000000000000000000000000000", decimals: 18 },
             { symbol: "USDT", address: "0x7277Cc818e3F3FfBb169c6Da9CC77Fc2d2a34895", decimals: 6 },
             { symbol: "USDC", address: "0x836d275563bAb5E93Fd6Ca62a95dB7065Da94342", decimals: 6 },
         ],
@@ -67,9 +67,10 @@ export const CHAINS = [
         rpcUrl: "https://rpc.open-campus-codex.gelato.digital",
         contractAddress: "0xYourContractAddressOnEduchainTestnet",
         tokens: [
-            { symbol: "EDU", address: "0x6b175474e89094c44da98b954eedeac495271d0f", decimals: 18 },
+            { symbol: "EDU", address: "0x0000000000000000000000000000000000000000", decimals: 18 },
             { symbol: "USDT", address: "0x3BfB66999C22c0189B0D837D12D5A4004844EC12", decimals: 6 },
-            { symbol: "USDC", address: "0x77721D19BDfc67fe8cc46ddaa3cc4C94e6826E3C", decimals: 18 },
+            { symbol: "USDC", address: "0x77721D19BDfc67fe8cc46ddaa3cc4C94e6826E3C", decimals: 6 },
+            { symbol: "USDC CIRCLE", address: "0x19EeaDcBA1801Afec43e87Cefcd4239E13fc294d", decimals: 6 },
         ],
         blockExplorerUrl: "https://edu-chain-testnet.blockscout.com"
     },
@@ -80,6 +81,7 @@ export const CHAINS = [
         contractAddress: "0x072dD1BAb49819726C61Bca8F5774565f5c8BF24",
         tokens: [
             { symbol: "S", address: "0x0000000000000000000000000000000000000000", decimals: 18 },
+            { symbol: "CORAL", address: "0xAF93888cbD250300470A1618206e036E11470149", decimals: 18 },
         ],
         blockExplorerUrl: "https://testnet.sonicscan.org"
     }
