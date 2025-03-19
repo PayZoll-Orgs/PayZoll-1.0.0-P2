@@ -8,47 +8,86 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract BulkPayroll is ReentrancyGuard {
     using SafeERC20 for IERC20;
 
+    error LengthMismatch();
+    error InsufficientBalance();
+    error InsufficientAllowance();
+    error TransferFailed();
+    error RefundFailed();
+
     event BulkTransferExecuted(
-        address indexed sender, address indexed token, uint256 totalRecipients, uint256 totalAmount
+        address indexed sender,
+        address indexed token,
+        uint256 totalRecipients,
+        uint256 totalAmount
     );
 
     /**
-     * @notice Executes a bulk transfer of tokens from the caller to a list of recipients.
-     * @param token The address of the ERC20 token.
-     * @param recipients An array of recipient addresses.
-     * @param amounts An array of token amounts corresponding to each recipient.
+     * @notice Executes a bulk transfer of tokens/Native currency
+     * @dev Uses checked arithmetic for sum, batch allowance check for ERC20
+     * @param token ERC20 token address or address(0) for Native currency
+     * @param recipients Array of recipient addresses
+     * @param amounts Array of corresponding transfer amounts
      */
-    function bulkTransfer(address token, address[] calldata recipients, uint256[] calldata amounts)
-        external
-        payable
-        nonReentrant
-    {
-        require(recipients.length == amounts.length, "Recipients and amounts length mismatch");
+    function bulkTransfer(
+        address token,
+        address[] calldata recipients,
+        uint256[] calldata amounts
+    ) external payable nonReentrant {
+        uint256 length = recipients.length;
+        if (length != amounts.length) revert LengthMismatch();
 
-        if (token == address(0)) {
-            // Native token transfer
-            uint256 totalAmount = 0;
-            for (uint256 i = 0; i < amounts.length; i++) {
-                totalAmount += amounts[i];
-            }
-            require(msg.value >= totalAmount, "Insufficient ETH sent");
-
-            for (uint256 i = 0; i < recipients.length; i++) {
-                payable(recipients[i]).transfer(amounts[i]);
-            }
-
-            // Return excess ETH if any
-            if (msg.value > totalAmount) {
-                payable(msg.sender).transfer(msg.value - totalAmount);
-            }
-        } else {
-            // ERC20 token transfer
-            IERC20 erc20 = IERC20(token);
-            for (uint256 i = 0; i < recipients.length; i++) {
-                erc20.safeTransferFrom(msg.sender, recipients[i], amounts[i]);
-            }
+        uint256 totalAmount;
+        for (uint256 i; i < length;) {
+            totalAmount += amounts[i];
+            unchecked { ++i; }
         }
 
-        emit BulkTransferExecuted(msg.sender, token, recipients.length, 0);
+        if (token == address(0)) {
+            _handleNativeTransfer(totalAmount, recipients, amounts);
+        } else {
+            _handleERC20Transfer(token, totalAmount, recipients, amounts);
+        }
+
+        emit BulkTransferExecuted(msg.sender, token, length, totalAmount);
+    }
+
+    function _handleNativeTransfer(
+        uint256 totalAmount,
+        address[] calldata recipients,
+        uint256[] calldata amounts
+    ) private {
+        if (msg.value < totalAmount) revert InsufficientBalance();
+
+        for (uint256 i; i < recipients.length;) {
+            (bool success,) = recipients[i].call{value: amounts[i]}("");
+            if (!success) revert TransferFailed();
+            unchecked { ++i; }
+        }
+
+        _refundExcessNative(totalAmount);
+    }
+
+    function _handleERC20Transfer(
+        address token,
+        uint256 totalAmount,
+        address[] calldata recipients,
+        uint256[] calldata amounts
+    ) private {
+        IERC20 tokenContract = IERC20(token);
+        uint256 allowance = tokenContract.allowance(msg.sender, address(this));
+        if (allowance < totalAmount) revert InsufficientAllowance();
+
+        for (uint256 i; i < recipients.length;) {
+            tokenContract.safeTransferFrom(msg.sender, recipients[i], amounts[i]);
+            unchecked { ++i; }
+        }
+    }
+
+    function _refundExcessNative(uint256 totalAmount) private {
+        uint256 remainder = msg.value - totalAmount;
+        if (remainder > 0) {
+            (bool success,) = msg.sender.call{value: remainder}("");
+            if (!success) revert RefundFailed();
+        }
     }
 }

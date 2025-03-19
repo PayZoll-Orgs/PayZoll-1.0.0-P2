@@ -526,8 +526,8 @@
       ]
     },
     "/home/ryuk/Desktop/PayZoll-1.0.0-P1/Frontend/src/blockchain/contracts/transfers-production/BulkPayroll.sol": {
-      "lastModificationDate": 1742323767772,
-      "contentHash": "4602f91dc524337f0a26b9a96bdcb0b8",
+      "lastModificationDate": 1742380820759,
+      "contentHash": "c4d2421173ea56f2b6af65cf3ab3d094",
       "sourceName": "contracts/transfers-production/BulkPayroll.sol",
       "solcConfig": {
         "version": "0.8.27",

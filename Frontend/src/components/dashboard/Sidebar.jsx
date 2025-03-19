@@ -14,9 +14,10 @@ import {
 const menuItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/employer/dashboard" },
   { icon: Users, label: "Employees", path: "/employer/employees" },
-  { icon: BadgeDollarSign, label: "Payments", path: "/employer/payments" },
-  { icon: Award, label: "ESOPS/RSU", path: "/employer/esops" },
-  { icon: Settings, label: "Settings", path: "/employer/settings" },
+  // { icon: BadgeDollarSign, label: "Payments", path: "/employer/payments" },
+  { icon: BadgeDollarSign, label: "Payments", path: "/bulk" },
+  // { icon: Award, label: "ESOPS/RSU", path: "/employer/esops" },
+  // { icon: Settings, label: "Settings", path: "/employer/settings" },
 ];
 
 export default function Sidebar({

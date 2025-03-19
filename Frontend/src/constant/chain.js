@@ -1,3 +1,5 @@
+export const NATIVE_TOKEN_ADDRESS = "0x0000000000000000000000000000000000000000";
+
 export const CHAINS = [
     {
         name: "Polygon Mainnet",
@@ -39,7 +41,7 @@ export const CHAINS = [
         name: "BNB Chain Testnet",
         chainId: 97,
         rpcUrl: "https://data-seed-prebsc-1-s1.binance.org:8545",
-        contractAddress: "0x2c137aC6Bc804A9F798053347802F489F0025768",
+        contractAddress: "0x9571BcCA765f30FF221dfB976ab530Ba44bd85AE",
         tokens: [
             { symbol: "tBNB", address: "0x0000000000000000000000000000000000000000", decimals: 18 },
             { symbol: "USDT", address: "0x337610d27c682e347c9cd60bd4b3b107c9d34ddd", decimals: 18 },
@@ -66,8 +68,8 @@ export const CHAINS = [
         contractAddress: "0xYourContractAddressOnEduchainTestnet",
         tokens: [
             { symbol: "EDU", address: "0x6b175474e89094c44da98b954eedeac495271d0f", decimals: 18 },
-            { symbol: "USDT", address: "0xBCe9628e89eC686C9E1878065bec04b45DBD0B40", decimals: 6 },
-            { symbol: "USDC", address: "0x77721D19BDfc67fe8cc46ddaa3cc4C94e6826E3C", decimals: 6 },
+            { symbol: "USDT", address: "0x3BfB66999C22c0189B0D837D12D5A4004844EC12", decimals: 6 },
+            { symbol: "USDC", address: "0x77721D19BDfc67fe8cc46ddaa3cc4C94e6826E3C", decimals: 18 },
         ],
         blockExplorerUrl: "https://edu-chain-testnet.blockscout.com"
     },
@@ -75,7 +77,7 @@ export const CHAINS = [
         name: "Sonic Blaze Testnet",
         chainId: 57054,
         rpcUrl: "https://rpc.blaze.soniclabs.com",
-        contractAddress: "0x60F733b4F6eCa0Cf196397C7b9f805f36AEc9E27",
+        contractAddress: "0x072dD1BAb49819726C61Bca8F5774565f5c8BF24",
         tokens: [
             { symbol: "S", address: "0x0000000000000000000000000000000000000000", decimals: 18 },
         ],

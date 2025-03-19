@@ -13,14 +13,14 @@ module.exports = {
       accounts: [PRIVATE_KEY]
     },
     // Polygon Testnet (Mumbai)
-    mumbai: {
-      url: "https://rpc-mumbai.maticvigil.com",
-      chainId: 80001,
+    amoy: {
+      url: "https://rpc-amoy.polygon.technology",
+      chainId: 80002,
       accounts: [PRIVATE_KEY]
     },
     // BNB Chain Mainnet
     bsc: {
-      url: "https://bsc-dataseed.bnbchain.org",
+      url: "https://binance.llamarpc.com",
       chainId: 56,
       accounts: [PRIVATE_KEY]
     },
