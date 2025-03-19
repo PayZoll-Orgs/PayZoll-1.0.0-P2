@@ -12,7 +12,7 @@ module.exports = {
       chainId: 137,
       accounts: [PRIVATE_KEY]
     },
-    // Polygon Testnet (Mumbai)
+    // Polygon Testnet (Amoy)
     amoy: {
       url: "https://rpc-amoy.polygon.technology",
       chainId: 80002,
