@@ -525,10 +525,10 @@
         "ReentrancyGuard"
       ]
     },
-    "/home/ryuk/Desktop/PayZoll-1.0.0-P1/Frontend/src/blockchain/contracts/transfers-production/bulkPayroll.sol": {
-      "lastModificationDate": 1742321308536,
+    "/home/ryuk/Desktop/PayZoll-1.0.0-P1/Frontend/src/blockchain/contracts/transfers-production/BulkPayroll.sol": {
+      "lastModificationDate": 1742323767772,
       "contentHash": "4602f91dc524337f0a26b9a96bdcb0b8",
-      "sourceName": "contracts/transfers-production/bulkPayroll.sol",
+      "sourceName": "contracts/transfers-production/BulkPayroll.sol",
       "solcConfig": {
         "version": "0.8.27",
         "settings": {

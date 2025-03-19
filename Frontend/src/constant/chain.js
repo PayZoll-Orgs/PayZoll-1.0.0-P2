@@ -12,16 +12,16 @@ export const CHAINS = [
         blockExplorerUrl: "https://polygonscan.com"
     },
     {
-        name: "Polygon Testnet (Mumbai)",
-        chainId: 80001,
-        rpcUrl: "https://rpc-mumbai.maticvigil.com",
+        name: "Polygon Amoy Testnet",
+        chainId: 80002,
+        rpcUrl: "https://rpc-amoy.polygon.technology",
         contractAddress: "0xYourContractAddressOnPolygonTestnet",
         tokens: [
             { symbol: "MATIC", address: "0x0000000000000000000000000000000000001010" },
-            { symbol: "USDT", address: "0xa02f6adc7926efebbd59fd43a84f4e0c0c91e832", decimals: 6 },
-            { symbol: "USDC", address: "0xe6b8a5cf854791412c1f6efc7caf629f5df1c747", decimals: 6 },
+            { symbol: "TUSDT", address: "0x2655783ed6c47Fd312D1204712A804821899E1A3", decimals: 6 },
+            { symbol: "USDC", address: "0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582", decimals: 6 },
         ],
-        blockExplorerUrl: "https://mumbai.polygonscan.com"
+        blockExplorerUrl: "https://amoy.polygonscan.com/"
     },
     {
         name: "BNB Chain Mainnet",
@@ -39,11 +39,11 @@ export const CHAINS = [
         name: "BNB Chain Testnet",
         chainId: 97,
         rpcUrl: "https://data-seed-prebsc-1-s1.binance.org:8545",
-        contractAddress: "0xYourContractAddressOnBNBTestnet",
+        contractAddress: "0x2c137aC6Bc804A9F798053347802F489F0025768",
         tokens: [
             { symbol: "BNB", address: "0x0000000000000000000000000000000000000000" },
-            { symbol: "USDT", address: "0x337610d27c682e347c9cd60bd4b3b107c9d34ddd", decimals: 6 },
-            { symbol: "USDC", address: "0x0a385f86059e0b2a048171d78afd1f38558121f3", decimals: 6 },
+            { symbol: "USDT", address: "0x337610d27c682e347c9cd60bd4b3b107c9d34ddd", decimals: 18 },
+            { symbol: "USDC", address: "0x0a385f86059e0b2a048171d78afd1f38558121f3", decimals: 18 },
         ],
         blockExplorerUrl: "https://testnet.bscscan.com"
     },
