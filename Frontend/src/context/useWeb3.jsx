@@ -246,12 +246,11 @@ export const Web3Provider = ({ children }) => {
                   chainId: hexChainId,
                   chainName: chain.name,
                   nativeCurrency: {
-                    name: chain.nativeCurrency?.name || chain.symbol,
-                    symbol: chain.nativeCurrency?.symbol || chain.symbol,
-                    decimals: chain.nativeCurrency?.decimals || 18,
+                    symbol: chain.tokens[0].symbol,
+                    decimals: chain.tokens[0].decimals || 18,
                   },
                   rpcUrls: [chain.rpcUrl],
-                  blockExplorerUrls: chain.blockExplorer ? [chain.blockExplorer] : undefined,
+                  blockExplorerUrls: chain.blockExplorerUrl ? [chain.blockExplorer] : undefined,
                 },
               ],
             });
