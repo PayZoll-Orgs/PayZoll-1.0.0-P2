@@ -5,23 +5,25 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title Company Payroll
- * @dev Gas-efficient payroll system with company metadata and deployer tracking
+ * @dev Gas-optimized payroll system with company metadata and deployer tracking
  */
 contract CompanyPayroll is Ownable {
     error EmployeeIdEmpty();
     error SalaryEmpty();
     error SameSalary();
-    error CompanyIdZero();
+    error CompanyIdEmpty();
     error CompanyNameEmpty();
     error EmployeeNotFound();
+    error MismatchedArrayLengths();
 
     // Immutable company information (set once at deployment)
-    bytes32 public immutable companyId;
+    string public companyId;
     string public companyName;
     address public immutable deployer;
 
     // Employee salary storage
-    mapping(string => string) public employeeSalaries;
+    mapping(string => string) private employeeSalaries;
+    mapping(string => uint256) private employeeIndex;
     string[] private employeeIds;
 
     event SalarySet(string indexed employeeId, string salary);
@@ -29,11 +31,11 @@ contract CompanyPayroll is Ownable {
 
     /**
      * @dev Initializes contract with company information
-     * @param _companyId bytes32 identifier for the company
+     * @param _companyId string identifier for the company
      * @param _companyName Name of the company
      */
-    constructor(bytes32 _companyId, string memory _companyName) Ownable(msg.sender) {
-        if (_companyId == bytes32(0)) revert CompanyIdZero();
+    constructor(string memory _companyId, string memory _companyName) Ownable(msg.sender) {
+        if (bytes(_companyId).length == 0) revert CompanyIdEmpty();
         if (bytes(_companyName).length == 0) revert CompanyNameEmpty();
 
         companyId = _companyId;
@@ -48,15 +50,38 @@ contract CompanyPayroll is Ownable {
         if (bytes(employeeId).length == 0) revert EmployeeIdEmpty();
         if (bytes(salary).length == 0) revert SalaryEmpty();
 
-        string memory currentSalary = employeeSalaries[employeeId];
-        if (keccak256(abi.encodePacked(currentSalary)) == keccak256(abi.encodePacked(salary))) revert SameSalary();
+        if (keccak256(bytes(employeeSalaries[employeeId])) == keccak256(bytes(salary))) revert SameSalary();
 
-        if (bytes(currentSalary).length == 0) {
+        if (bytes(employeeSalaries[employeeId]).length == 0) {
+            employeeIndex[employeeId] = employeeIds.length;
             employeeIds.push(employeeId);
         }
 
         employeeSalaries[employeeId] = salary;
         emit SalarySet(employeeId, salary);
+    }
+
+    /**
+     * @dev Bulk add employee salaries
+     */
+    function bulkAddEmployees(string[] calldata employeeIdsArray, string[] calldata salariesArray) external onlyOwner {
+        if (employeeIdsArray.length != salariesArray.length) revert MismatchedArrayLengths();
+
+        for (uint256 i = 0; i < employeeIdsArray.length; i++) {
+            string memory employeeId = employeeIdsArray[i];
+            string memory salary = salariesArray[i];
+
+            if (bytes(employeeId).length == 0) revert EmployeeIdEmpty();
+            if (bytes(salary).length == 0) revert SalaryEmpty();
+
+            if (bytes(employeeSalaries[employeeId]).length == 0) {
+                employeeIndex[employeeId] = employeeIds.length;
+                employeeIds.push(employeeId);
+            }
+
+            employeeSalaries[employeeId] = salary;
+            emit SalarySet(employeeId, salary);
+        }
     }
 
     /**
@@ -70,9 +95,9 @@ contract CompanyPayroll is Ownable {
      * @dev Retrieves all employee details
      */
     function getAllEmployeeDetails() external view returns (string[] memory, string[] memory) {
-        string[] memory salaries = new string[](employeeIds.length);
-        uint256 employeesLength = employeeIds.length;
-        for (uint256 i = 0; i < employeesLength; i++) {
+        uint256 length = employeeIds.length;
+        string[] memory salaries = new string[](length);
+        for (uint256 i = 0; i < length; i++) {
             salaries[i] = employeeSalaries[employeeIds[i]];
         }
         return (employeeIds, salaries);
@@ -85,17 +110,16 @@ contract CompanyPayroll is Ownable {
         if (bytes(employeeId).length == 0) revert EmployeeIdEmpty();
         if (bytes(employeeSalaries[employeeId]).length == 0) revert EmployeeNotFound();
 
-        delete employeeSalaries[employeeId];
+        uint256 index = employeeIndex[employeeId];
+        uint256 lastIndex = employeeIds.length - 1;
+        string memory lastEmployee = employeeIds[lastIndex];
 
-        // Remove employeeId from employeeIds array
-        uint256 employeesLength = employeeIds.length;
-        for (uint256 i = 0; i < employeesLength; i++) {
-            if (keccak256(abi.encodePacked(employeeIds[i])) == keccak256(abi.encodePacked(employeeId))) {
-                employeeIds[i] = employeeIds[employeesLength - 1]; // Move last element to deleted spot
-                employeeIds.pop(); // Remove last element
-                break;
-            }
-        }
+        employeeIds[index] = lastEmployee;
+        employeeIndex[lastEmployee] = index;
+        employeeIds.pop();
+
+        delete employeeSalaries[employeeId];
+        delete employeeIndex[employeeId];
 
         emit EmployeeDeleted(employeeId);
     }
