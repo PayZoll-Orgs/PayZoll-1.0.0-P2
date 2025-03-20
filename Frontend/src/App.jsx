@@ -12,6 +12,7 @@ import { Web3Provider } from "./context/useWeb3";
 import LendingPage from "./pages/LendingPage";
 import BotIntro from "./components/BotIntro.jsx";
 import Bulk from "./pages/Bulk.jsx";
+import AptosBulk from "./pages/AptosBulk.jsx";
 
 export default function App() {
   const EmployerRoutes = () => (
@@ -26,7 +27,7 @@ export default function App() {
         <Route path="/employer/settings" element={<SettingsPage />} />
         <Route path="/employer/dashboard/botintro" element={<BotIntro />} />
         <Route path="/lending" element={<LendingPage />} />
-        <Route path="/bulk" element={<Bulk/>} />
+        <Route path="/bulk" element={<Bulk />} />
       </Routes>
     </Web3Provider>
   );
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
         {/* Wrap employer-specific routes in Web3Provider */}
         <Route path="/*" element={<EmployerRoutes />} />
+        <Route path="/aptos" element={<AptosBulk />} />
       </Routes>
     </Router>
   );

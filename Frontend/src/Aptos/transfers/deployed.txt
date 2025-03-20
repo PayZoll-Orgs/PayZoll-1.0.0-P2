@@ -1,0 +1,12 @@
+Payroll
+Do you want to deploy this package at object address 0xc86d8882ad5f59d399d3c7cc365282e439618494090a21e9b33a947d480c6ae2 [yes/no] >
+yes
+package size 1966 bytes
+Do you want to submit a transaction for a range of [223300 - 334900] Octas at a gas unit price of 100 Octas? [yes/no] >
+yes
+Transaction submitted: https://explorer.aptoslabs.com/txn/0x4f64d772ce93196aaeba0af24f3483047935e6e381d170e49407518e3393b71a?network=testnet
+Code was successfully deployed to object address 0xc86d8882ad5f59d399d3c7cc365282e439618494090a21e9b33a947d480c6ae2
+{
+  "Result": "Success"
+}
+

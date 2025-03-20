@@ -566,8 +566,8 @@
       ]
     },
     "/home/ryuk/Desktop/PayZoll-1.0.0-P1/Frontend/src/blockchain/contracts/employees-details/CompanyPayroll.sol": {
-      "lastModificationDate": 1742443683106,
-      "contentHash": "d0a9ed73c7517c2ff61c4e128b3e3a05",
+      "lastModificationDate": 1742465423426,
+      "contentHash": "24bce50837c878392a23e18a31a11656",
       "sourceName": "contracts/employees-details/CompanyPayroll.sol",
       "solcConfig": {
         "version": "0.8.27",
