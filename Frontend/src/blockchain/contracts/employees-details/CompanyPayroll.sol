@@ -10,9 +10,10 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract CompanyPayroll is Ownable {
     error EmployeeIdEmpty();
     error SalaryEmpty();
-    error SameHash();
+    error SameSalary();
     error CompanyIdZero();
     error CompanyNameEmpty();
+    error EmployeeNotFound();
 
     // Immutable company information (set once at deployment)
     bytes32 public immutable companyId;
@@ -20,10 +21,11 @@ contract CompanyPayroll is Ownable {
     address public immutable deployer;
 
     // Employee salary storage
-    mapping(string => string) public employeeSalaryHashes;
+    mapping(string => string) public employeeSalaries;
     string[] private employeeIds;
 
-    event SalaryHashSet(string indexed employeeId, string hash);
+    event SalarySet(string indexed employeeId, string salary);
+    event EmployeeDeleted(string indexed employeeId);
 
     /**
      * @dev Initializes contract with company information
@@ -40,31 +42,28 @@ contract CompanyPayroll is Ownable {
     }
 
     /**
-     * @dev Sets/updates employee salary hash
-     * Maintains previous gas optimizations with additional company context
+     * @dev Sets/updates employee salary
      */
-    function setEmployeeSalaryHash(string calldata employeeId, string calldata salary) external onlyOwner {
+    function setEmployeeSalary(string calldata employeeId, string calldata salary) external onlyOwner {
         if (bytes(employeeId).length == 0) revert EmployeeIdEmpty();
         if (bytes(salary).length == 0) revert SalaryEmpty();
 
-        string memory newHash = string(abi.encodePacked(keccak256(abi.encodePacked(salary))));
-        string memory currentHash = employeeSalaryHashes[employeeId];
+        string memory currentSalary = employeeSalaries[employeeId];
+        if (keccak256(abi.encodePacked(currentSalary)) == keccak256(abi.encodePacked(salary))) revert SameSalary();
 
-        if (keccak256(abi.encodePacked(currentHash)) == keccak256(abi.encodePacked(newHash))) revert SameHash();
-
-        if (bytes(currentHash).length == 0) {
+        if (bytes(currentSalary).length == 0) {
             employeeIds.push(employeeId);
         }
 
-        employeeSalaryHashes[employeeId] = newHash;
-        emit SalaryHashSet(employeeId, newHash);
+        employeeSalaries[employeeId] = salary;
+        emit SalarySet(employeeId, salary);
     }
 
     /**
-     * @dev Retrieves employee salary hash
+     * @dev Retrieves employee salary
      */
-    function getEmployeeSalaryHash(string calldata employeeId) external view returns (string memory) {
-        return employeeSalaryHashes[employeeId];
+    function getEmployeeSalary(string calldata employeeId) external view returns (string memory) {
+        return employeeSalaries[employeeId];
     }
 
     /**
@@ -74,8 +73,30 @@ contract CompanyPayroll is Ownable {
         string[] memory salaries = new string[](employeeIds.length);
         uint256 employeesLength = employeeIds.length;
         for (uint256 i = 0; i < employeesLength; i++) {
-            salaries[i] = employeeSalaryHashes[employeeIds[i]];
+            salaries[i] = employeeSalaries[employeeIds[i]];
         }
         return (employeeIds, salaries);
+    }
+
+    /**
+     * @dev Deletes an employee record
+     */
+    function deleteEmployee(string calldata employeeId) external onlyOwner {
+        if (bytes(employeeId).length == 0) revert EmployeeIdEmpty();
+        if (bytes(employeeSalaries[employeeId]).length == 0) revert EmployeeNotFound();
+
+        delete employeeSalaries[employeeId];
+
+        // Remove employeeId from employeeIds array
+        uint256 employeesLength = employeeIds.length;
+        for (uint256 i = 0; i < employeesLength; i++) {
+            if (keccak256(abi.encodePacked(employeeIds[i])) == keccak256(abi.encodePacked(employeeId))) {
+                employeeIds[i] = employeeIds[employeesLength - 1]; // Move last element to deleted spot
+                employeeIds.pop(); // Remove last element
+                break;
+            }
+        }
+
+        emit EmployeeDeleted(employeeId);
     }
 }
