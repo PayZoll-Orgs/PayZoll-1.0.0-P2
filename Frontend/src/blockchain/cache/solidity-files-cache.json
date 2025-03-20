@@ -564,6 +564,44 @@
       "artifacts": [
         "BulkPayroll"
       ]
+    },
+    "/home/ryuk/Desktop/PayZoll-1.0.0-P1/Frontend/src/blockchain/contracts/employees-details/CompanyPayroll.sol": {
+      "lastModificationDate": 1742443683106,
+      "contentHash": "d0a9ed73c7517c2ff61c4e128b3e3a05",
+      "sourceName": "contracts/employees-details/CompanyPayroll.sol",
+      "solcConfig": {
+        "version": "0.8.27",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "CompanyPayroll"
+      ]
     }
   }
 }
