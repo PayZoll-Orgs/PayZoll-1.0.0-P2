@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CHAINS } from '../constant/chain';
 import { useWeb3 } from '../context/useWeb3';
 import Sidebar from "../components/dashboard/Sidebar";
+import { backendDomain } from "../constant/domain";
+import axios from "axios";
 import { CreditCard, RefreshCw, ChevronDown } from 'react-feather'; // Add feather icons
 
 // Define native token placeholder
@@ -19,6 +21,7 @@ const dummyEmployeeData = [
     },
   
 ];
+
 
 // Custom animated components
 const GlowButton = ({ children, disabled, isLoading, onClick, className = "" }) => (
@@ -99,14 +102,39 @@ function Bulk() {
         fetchEmployees();
     }, []);
 
+    // const fetchEmployees = async () => {
+    //     setIsLoadingEmployees(true);
+    //     try {
+    //         await new Promise(resolve => setTimeout(resolve, 1000));
+    //         setEmployees(dummyEmployeeData);
+    //         const initialSelected = {};
+    //         dummyEmployeeData.forEach(emp => {
+    //             initialSelected[emp.id] = true;
+    //         });
+    //         setSelectedEmployees(initialSelected);
+    //     } catch (error) {
+    //         console.error("Error fetching employee data:", error);
+    //     } finally {
+    //         setIsLoadingEmployees(false);
+    //     }
+    // };
     const fetchEmployees = async () => {
         setIsLoadingEmployees(true);
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            setEmployees(dummyEmployeeData);
+            const token = localStorage.getItem("token");
+            const response = await axios.get(
+                `${backendDomain}/admin/get-all-empolyees`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            setEmployees(response.data.employee);
             const initialSelected = {};
-            dummyEmployeeData.forEach(emp => {
-                initialSelected[emp.id] = true;
+            employees.forEach(emp => {
+                initialSelected[emp._id] = true;
             });
             setSelectedEmployees(initialSelected);
         } catch (error) {
@@ -120,7 +148,7 @@ function Bulk() {
         const isChecked = e.target.checked;
         const newSelected = {};
         employees.forEach(emp => {
-            newSelected[emp.id] = isChecked;
+            newSelected[emp._id] = isChecked;
         });
         setSelectedEmployees(newSelected);
     };
@@ -148,12 +176,12 @@ function Bulk() {
     const handlePayEmployees = async () => {
         setIsLoading(true);
         try {
-            const selectedEmps = employees.filter(emp => selectedEmployees[emp.id]);
+            const selectedEmps = employees.filter(emp => selectedEmployees[emp._id]);
             if (selectedEmps.length === 0) {
                 throw new Error("Please select at least one employee to pay");
             }
-            const recipientAddresses = selectedEmps.map(emp => emp.walletAddress);
-            const amounts = selectedEmps.map(emp => emp.salary);
+            const recipientAddresses = selectedEmps.map(emp => emp.accountId);
+            const amounts = selectedEmps.map(emp => emp.salary.$numberDecimal);
             await sendBulkTransfer(recipientAddresses, amounts);
         } catch (error) {
             console.error("Error paying employees:", error);
@@ -389,15 +417,15 @@ function Bulk() {
                                                                             type="checkbox"
                                                                             id="select-all"
                                                                             className="opacity-0 absolute h-5 w-5"
-                                                                            checked={employees.every(emp => selectedEmployees[emp.id])}
+                                                                            checked={employees.every(emp => selectedEmployees[emp._id])}
                                                                             onChange={handleSelectAll}
                                                                         />
-                                                                        <div className={`border ${employees.every(emp => selectedEmployees[emp.id])
+                                                                        <div className={`border ${employees.every(emp => selectedEmployees[emp._id])
                                                                             ? 'bg-violet-600 border-violet-700'
                                                                             : 'border-gray-600 bg-[#20273E]'} 
                                                                             rounded h-5 w-5 flex flex-shrink-0 justify-center items-center
                                                                             focus-within:border-violet-500 transition-colors duration-200`}>
-                                                                            {employees.every(emp => selectedEmployees[emp.id]) && (
+                                                                            {employees.every(emp => selectedEmployees[emp._id]) && (
                                                                                 <motion.svg
                                                                                     className="w-3 h-3 text-white pointer-events-none"
                                                                                     viewBox="0 0 12 12"
@@ -424,7 +452,7 @@ function Bulk() {
                                                     <tbody className="bg-[#1A1E2E]">
                                                         {employees.map((employee, i) => (
                                                             <motion.tr
-                                                                key={employee.id}
+                                                                key={employee._id}
                                                                 custom={i}
                                                                 variants={tableRowVariants}
                                                                 whileHover="hover"
@@ -434,17 +462,17 @@ function Bulk() {
                                                                     <div className="relative">
                                                                         <input
                                                                             type="checkbox"
-                                                                            id={`emp-${employee.id}`}
+                                                                            id={`emp-${employee._id}`}
                                                                             className="opacity-0 absolute h-5 w-5"
-                                                                            checked={selectedEmployees[employee.id] || false}
-                                                                            onChange={() => handleSelectEmployee(employee.id)}
+                                                                            checked={selectedEmployees[employee._id] || false}
+                                                                            onChange={() => handleSelectEmployee(employee._id)}
                                                                         />
-                                                                        <div className={`border ${selectedEmployees[employee.id]
+                                                                        <div className={`border ${selectedEmployees[employee._id]
                                                                             ? 'bg-violet-600 border-violet-700'
                                                                             : 'border-gray-600 bg-[#20273E]'} 
                                                                             rounded h-5 w-5 flex flex-shrink-0 justify-center items-center
                                                                             focus-within:border-violet-500 transition-colors duration-200`}>
-                                                                            {selectedEmployees[employee.id] && (
+                                                                            {selectedEmployees[employee._id] && (
                                                                                 <motion.svg
                                                                                     className="w-3 h-3 text-white pointer-events-none"
                                                                                     viewBox="0 0 12 12"
@@ -467,18 +495,18 @@ function Bulk() {
                                                                     </div>
                                                                 </td>
                                                                 <td className="p-4">
-                                                                    <span className="px-2 py-1 bg-[#232A45] text-violet-300 text-xs rounded-full">{employee.department}</span>
+                                                                    <span className="px-2 py-1 bg-[#232A45] text-violet-300 text-xs rounded-full">{employee.designation}</span>
                                                                 </td>
                                                                 <td className="p-4">
                                                                     <div className="flex items-center space-x-2">
                                                                         <div className="w-2 h-2 bg-green-400 rounded-full shadow-[0_0_5px_rgba(74,222,128,0.5)]"></div>
                                                                         <span className="font-mono text-gray-400 text-sm">
-                                                                            {employee.walletAddress.substring(0, 6)}...{employee.walletAddress.substring(employee.walletAddress.length - 4)}
+                                                                            {employee.accountId.substring(0, 6)}...{employee.accountId.substring(employee.accountId.length - 4)}
                                                                         </span>
                                                                     </div>
                                                                 </td>
                                                                 <td className="p-4 text-right">
-                                                                    <span className="font-medium text-indigo-300">{employee.salary}</span>
+                                                                    <span className="font-medium text-indigo-300">{employee.salary.$numberDecimal}</span>
                                                                 </td>
                                                             </motion.tr>
                                                         ))}
