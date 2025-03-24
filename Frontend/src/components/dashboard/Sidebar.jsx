@@ -48,12 +48,12 @@ export default function Sidebar({
           >
             PayZoll Agent
           </Link> */}
-          <Link
+          {/* <Link
             to="./botintro"
             className="text-center font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
           >
             PayZoll Agent
-          </Link>
+          </Link> */}
         </div>
 
         {/* Navigation */}
