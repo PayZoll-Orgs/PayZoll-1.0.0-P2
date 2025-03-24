@@ -32,8 +32,8 @@ export const CHAINS = [
         contractAddress: "0xYourContractAddressOnBNBMainnet",
         tokens: [
             { symbol: "BNB", address: "0x0000000000000000000000000000000000000000", decimals: 18 },
-            { symbol: "USDT", address: "0x55d398326f99059fF775485246999027B3197955", decimals: 6 },
-            { symbol: "USDC", address: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d", decimals: 6 },
+            { symbol: "USDT", address: "0x55d398326f99059fF775485246999027B3197955", decimals: 18 },
+            { symbol: "USDC", address: "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d", decimals: 18 },
         ],
         blockExplorerUrl: "https://bscscan.com"
     },
