@@ -48,20 +48,20 @@ export default function BalanceSection({ isWalletConnected }) {
 
   const fetchTokenBalances = async () => {
     if (!provider || !account || !selectedChain) return;
-
+    
     setIsLoading(true);
-
+    
     try {
       const balances = [];
-
+      
       // Fetch native token balance (ETH, BNB, etc.)
-      const nativeToken = selectedChain.tokens.find(t =>
+      const nativeToken = selectedChain.tokens.find(t => 
         t.address === "0x0000000000000000000000000000000000000000");
-
+      
       if (nativeToken) {
         const nativeBalance = await provider.getBalance(account);
         const formatted = formatEther(nativeBalance);
-
+        
         balances.push({
           currency: nativeToken.symbol,
           address: nativeToken.address,
@@ -72,18 +72,18 @@ export default function BalanceSection({ isWalletConnected }) {
           decimals: 18
         });
       }
-
+      
       // Fetch ERC20 token balances
-      const erc20Tokens = selectedChain.tokens.filter(t =>
+      const erc20Tokens = selectedChain.tokens.filter(t => 
         t.address !== "0x0000000000000000000000000000000000000000");
-
+      
       for (const token of erc20Tokens) {
         try {
           const tokenContract = new ethers.Contract(token.address, tokenAbi, provider);
           const balance = await tokenContract.balanceOf(account);
           const decimals = await tokenContract.decimals().catch(() => 18);
           const formatted = formatUnits(balance, decimals);
-
+          
           balances.push({
             currency: token.symbol,
             address: token.address,
@@ -97,7 +97,7 @@ export default function BalanceSection({ isWalletConnected }) {
           console.error(`Error fetching balance for ${token.symbol}:`, error);
         }
       }
-
+      
       setTokenBalances(balances);
     } catch (error) {
       console.error("Error fetching token balances:", error);
@@ -181,8 +181,9 @@ export default function BalanceSection({ isWalletConnected }) {
                     {token.value}
                   </div>
                   <div
-                    className={`text-sm flex items-center ${token.isPositive ? "text-green-400" : "text-red-400"
-                      }`}
+                    className={`text-sm flex items-center ${
+                      token.isPositive ? "text-green-400" : "text-red-400"
+                    }`}
                   >
                     {token.isPositive ? (
                       <ArrowUpRight className="w-4 h-4 mr-1" />

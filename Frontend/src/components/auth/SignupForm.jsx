@@ -24,22 +24,22 @@ function SignupForm() {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    // const address = await deployContract(
-    //   signer,
-    //   "TTT",
-    //   "TTT",
-    //   ethers.parseUnits("1000", 18)
-    // );
-    // console.log("Contract Address: ", address);
+    const address = await deployContract(
+      signer,
+      "TTT",
+      "TTT",
+      ethers.parseUnits("1000", 18)
+    );
+    console.log("Contract Address: ", address);
 
     const registerData = {
       email: data.email,
       password: data.confirmPassword,
       name: data.companyName,
-      contractAddress: "0x0000000000000000000000000000000000000000",
+      contractAddress: address,
       tokenName: "TTT",
       tokenSymbol: "TTT",
-      tokenCount: 1000,
+      tokenCount: "1000",
     };
 
     try {
