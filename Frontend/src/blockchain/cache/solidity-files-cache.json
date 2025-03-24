@@ -489,6 +489,81 @@
       "artifacts": [
         "ReentrancyGuard"
       ]
+    },
+    "/home/ryuk/Desktop/PayZoll-1.0.0-P2/Frontend/src/blockchain/contracts/Lending.sol": {
+      "lastModificationDate": 1742812545585,
+      "contentHash": "756a18bedd0d4e15296db816cabba081",
+      "sourceName": "contracts/Lending.sol",
+      "solcConfig": {
+        "version": "0.8.27",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Lending"
+      ]
+    },
+    "/home/ryuk/Desktop/PayZoll-1.0.0-P2/Frontend/src/blockchain/contracts/Token.sol": {
+      "lastModificationDate": 1742812545273,
+      "contentHash": "bbde96abfbf3ef0e7728edb213e33617",
+      "sourceName": "contracts/Token.sol",
+      "solcConfig": {
+        "version": "0.8.27",
+        "settings": {
+          "evmVersion": "paris",
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Token"
+      ]
     }
   }
 }

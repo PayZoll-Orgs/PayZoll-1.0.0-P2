@@ -24,10 +24,23 @@ function SignupForm() {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
+    // Generate random 3-letter token name and symbol
+    const generateRandomLetters = (length) => {
+      let result = '';
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return result;
+    };
+
+    const randomTokenSymbol = generateRandomLetters(3);
+    const randomTokenName = randomTokenSymbol;
+
     const address = await deployContract(
       signer,
-      "TTT",
-      "TTT",
+      randomTokenName,
+      randomTokenSymbol,
       ethers.parseUnits("1000", 18)
     );
     console.log("Contract Address: ", address);
@@ -37,8 +50,8 @@ function SignupForm() {
       password: data.confirmPassword,
       name: data.companyName,
       contractAddress: address,
-      tokenName: "TTT",
-      tokenSymbol: "TTT",
+      tokenName: randomTokenName,
+      tokenSymbol: randomTokenSymbol,
       tokenCount: "1000",
     };
 
