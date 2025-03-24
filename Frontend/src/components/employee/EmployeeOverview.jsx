@@ -45,7 +45,7 @@ export default function EmployeeOverview({
           </div>
           <div className="space-y-1">
             <div className="text-gray-400 text-sm">Total Earnings</div>
-            <div className="text-2xl font-bold">{totalEarning().toFixed(6)} ETH</div>
+            <div className="text-2xl font-bold">{totalEarning().toFixed(6)} Dollar</div>
             <div className="text-sm text-gray-400">≈ 45.5 USD</div>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function EmployeeOverview({
           <div className="space-y-1">
             <div className="text-gray-400 text-sm">Next Payment</div>
             <div className="text-2xl font-bold">
-              {employeeInfo.salary.$numberDecimal} ETH
+              {employeeInfo.salary.$numberDecimal} Dollar
             </div>
             <div className="text-sm text-gray-400">Due in 5 days</div>
           </div>

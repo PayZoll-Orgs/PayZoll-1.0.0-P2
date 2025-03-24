@@ -71,7 +71,7 @@ async function executeBulkTransfer(
   try {
     // Call the bulkTransfer function
     const tx = await contract.bulkTransfer(recipients, values, {
-      value: totalAmount, // Include the Ether value
+      value: totalAmount, // Include the Dollar value
     });
     console.log("Transaction sent:", tx.hash);
 

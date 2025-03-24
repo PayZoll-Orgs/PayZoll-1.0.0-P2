@@ -24,7 +24,7 @@ const departmentData = [
 ];
 
 const paymentMethodData = [
-  { method: 'ETH', amount: 85000 },
+  { method: 'Dollar', amount: 85000 },
   { method: 'USDT', amount: 45000 },
   { method: 'USDC', amount: 25000 }
 ];

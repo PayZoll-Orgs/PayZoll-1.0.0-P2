@@ -147,7 +147,7 @@ export default function OverviewMetrics({ type }) {
         <div>
           <h3 className="text-gray-400 mb-2">Total Amount to be Paid</h3>
           <div className="text-4xl font-bold group-hover:bg-gradient-to-r group-hover:from-green-400 group-hover:to-emerald-400 group-hover:bg-clip-text group-hover:text-transparent transition-all">
-            {totalSalary} ether
+            {totalSalary} Dollar
           </div>
           <div className="text-green-400 text-sm mt-1">
             75% already processed

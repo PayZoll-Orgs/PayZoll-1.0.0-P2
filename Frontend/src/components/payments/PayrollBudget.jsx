@@ -39,7 +39,7 @@ export default function PayrollBudget({ totalSalary }) {
           </div>
           <div>
             <div className="text-sm text-gray-400">Available Balance</div>
-            <div className="text-2xl font-bold text-white">{balance} ETH</div>
+            <div className="text-2xl font-bold text-white">{balance} Dollar</div>
           </div>
         </div>
 
@@ -47,13 +47,13 @@ export default function PayrollBudget({ totalSalary }) {
           <div className="bg-crypto-card/50 rounded-lg p-3">
             <div className="text-gray-400">Required</div>
             <div className="font-semibold text-indigo-400">
-              {totalSalary} ETH
+              {totalSalary} Dollar
             </div>
           </div>
           <div className="bg-crypto-card/50 rounded-lg p-3">
             <div className="text-gray-400">Surplus</div>
             <div className="font-semibold text-green-400 overflow-x-auto">
-              {balance - totalSalary} ETH
+              {balance - totalSalary} Dollar
             </div>
           </div>
         </div>

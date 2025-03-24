@@ -176,7 +176,7 @@ export default function GeneralSettings() {
                      focus:outline-none focus:border-indigo-500 transition-colors"
           >
             <option value="usd">USD - US Dollar</option>
-            <option value="eth">ETH - Ethereum</option>
+            <option value="Dollar">Dollar - Ethereum</option>
             <option value="btc">BTC - Bitcoin</option>
             <option value="eur">EUR - Euro</option>
           </select>

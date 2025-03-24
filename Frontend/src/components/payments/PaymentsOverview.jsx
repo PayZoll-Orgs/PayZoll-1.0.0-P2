@@ -6,14 +6,14 @@ export default function PaymentsOverview({ employees, totalSalary, totalSalaryPa
   const stats = [
     {
       title: "Total Payroll (This Month)",
-      value: `${totalSalary} ETH`,
+      value: `${totalSalary} Dollar`,
       change: "+12%",
       icon: DollarSign,
       color: "from-indigo-600 to-purple-600",
     },
     {
       title: "Total Paid (MTD)",
-      value: `${totalSalaryPaid} ETH`,
+      value: `${totalSalaryPaid} Dollar`,
       change: "+8%",
       icon: TrendingUp,
       color: "from-green-600 to-emerald-600",

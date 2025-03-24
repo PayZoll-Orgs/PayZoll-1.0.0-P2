@@ -6,7 +6,7 @@ export default function PaymentSection({ employeeHistoryInfo, employeeInfo }) {
   const upcomingPayments = [
     {
       date: "Dec 31, 2024",
-      amount: `${employeeInfo.salary.$numberDecimal} ETH`,
+      amount: `${employeeInfo.salary.$numberDecimal} Dollar`,
       type: "Monthly Salary",
       status: "scheduled",
     },
@@ -103,7 +103,7 @@ export default function PaymentSection({ employeeHistoryInfo, employeeInfo }) {
                     {history.accountId}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold">
-                    {history.amount.$numberDecimal} ETH
+                    {history.amount.$numberDecimal} Dollar
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="px-2 py-1 text-xs rounded-full bg-green-400/10 text-green-400">

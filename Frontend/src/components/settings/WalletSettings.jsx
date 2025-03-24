@@ -13,14 +13,14 @@ export default function WalletSettings({ isWalletConnected }) {
       id: 1,
       name: 'MetaMask',
       address: '0x1234...5678',
-      balance: '12.5 ETH',
+      balance: '12.5 Dollar',
       primary: true
     },
     {
       id: 2,
       name: 'WalletConnect',
       address: '0x8765...4321',
-      balance: '5.2 ETH',
+      balance: '5.2 Dollar',
       primary: false
     }
   ];
@@ -29,7 +29,7 @@ export default function WalletSettings({ isWalletConnected }) {
     {
       id: 1,
       type: 'outgoing',
-      amount: '2.5 ETH',
+      amount: '2.5 Dollar',
       timestamp: '2 hours ago',
       status: 'completed',
       hash: '0xabcd...efgh'
@@ -37,7 +37,7 @@ export default function WalletSettings({ isWalletConnected }) {
     {
       id: 2,
       type: 'incoming',
-      amount: '5.0 ETH',
+      amount: '5.0 Dollar',
       timestamp: '1 day ago',
       status: 'completed',
       hash: '0xijkl...mnop'
@@ -118,9 +118,9 @@ export default function WalletSettings({ isWalletConnected }) {
                 type="number"
                 className="w-full bg-crypto-dark border border-gray-800 rounded-xl py-2 px-4
                          focus:outline-none focus:border-indigo-500 transition-colors"
-                placeholder="Enter amount in ETH"
+                placeholder="Enter amount in Dollar"
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">ETH</span>
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">Dollar</span>
             </div>
           </div>
 
@@ -131,9 +131,9 @@ export default function WalletSettings({ isWalletConnected }) {
                 type="number"
                 className="w-full bg-crypto-dark border border-gray-800 rounded-xl py-2 px-4
                          focus:outline-none focus:border-indigo-500 transition-colors"
-                placeholder="Enter amount in ETH"
+                placeholder="Enter amount in Dollar"
               />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">ETH</span>
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">Dollar</span>
             </div>
           </div>
         </div>

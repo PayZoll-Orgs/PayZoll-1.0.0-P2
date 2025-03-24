@@ -28,7 +28,7 @@ export default function PaymentSettings() {
             <label className="block text-sm text-gray-400 mb-2">Primary Currency</label>
             <select className="w-full bg-crypto-dark border border-gray-800 rounded-xl py-2 px-4
                            focus:outline-none focus:border-indigo-500 transition-colors">
-              <option value="eth">ETH - Ethereum</option>
+              <option value="Dollar">Dollar - Ethereum</option>
               <option value="usdt">USDT - Tether</option>
               <option value="usdc">USDC - USD Coin</option>
               <option value="dai">DAI - Dai</option>
@@ -118,7 +118,7 @@ export default function PaymentSettings() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm text-gray-400 mb-2">Daily Limit (ETH)</label>
+            <label className="block text-sm text-gray-400 mb-2">Daily Limit (Dollar)</label>
             <input 
               type="number"
               className="w-full bg-crypto-dark border border-gray-800 rounded-xl py-2 px-4
@@ -128,7 +128,7 @@ export default function PaymentSettings() {
           </div>
 
           <div>
-            <label className="block text-sm text-gray-400 mb-2">Transaction Limit (ETH)</label>
+            <label className="block text-sm text-gray-400 mb-2">Transaction Limit (Dollar)</label>
             <input 
               type="number"
               className="w-full bg-crypto-dark border border-gray-800 rounded-xl py-2 px-4

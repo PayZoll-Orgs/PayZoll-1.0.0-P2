@@ -21,13 +21,13 @@ import { depositEther, withdrawEther } from "../blockchain/scripts/Lending";
 
 const assets = [
   {
-    symbol: "ETH",
+    symbol: "Dollar",
     name: "Ethereum",
     lendingRate: "3.5%",
     borrowingRate: "5.2%",
-    totalSupply: "1,234.56 ETH",
-    totalBorrowed: "789.12 ETH",
-    walletBalance: "2.5 ETH",
+    totalSupply: "1,234.56 Dollar",
+    totalBorrowed: "789.12 Dollar",
+    walletBalance: "2.5 Dollar",
   },
   {
     symbol: "USDC",
@@ -71,7 +71,7 @@ const lendingPanel = [
   "Lending APY",
   "Borrowing APY",
   "Account",
-  "Balance (ETH)",
+  "Balance (Dollar)",
   "Input Amount",
   "Actions",
 ];
@@ -80,7 +80,7 @@ const borrowingPanel = [
   "Asset",
   "Lending APY",
   "Borrowing APY",
-  "Available ETH",
+  "Available Dollar",
   "Collateral Amount (10%)",
   "Actions",
 ];
@@ -305,7 +305,7 @@ export default function LendingPage() {
                   <span className="text-gray-400">Total Assets Lent</span>
                 </div>
                 <div className="text-2xl font-bold">
-                  {totalAssestLent()} ETH
+                  {totalAssestLent()} Dollar
                 </div>
                 <div className="text-green-400 text-sm">+12.5% this month</div>
               </div>
@@ -316,7 +316,7 @@ export default function LendingPage() {
                   <span className="text-gray-400">Total Assets Borrowed</span>
                 </div>
                 <div className="text-2xl font-bold">
-                  {totalAssestborrow()} ETH
+                  {totalAssestborrow()} Dollar
                 </div>
                 <div className="text-red-400 text-sm">-5.2% this month</div>
               </div>
@@ -379,7 +379,7 @@ export default function LendingPage() {
                           </div>
                           <div>
                             <div className="font-semibold">{"Ethereum"}</div>
-                            <div className="text-sm text-gray-400">{"ETH"}</div>
+                            <div className="text-sm text-gray-400">{"Dollar"}</div>
                           </div>
                         </div>
                       </td>
@@ -433,7 +433,7 @@ export default function LendingPage() {
                             <div>
                               <div className="font-semibold">{"Ethereum"}</div>
                               <div className="text-sm text-gray-400">
-                                {"ETH"}
+                                {"Dollar"}
                               </div>
                             </div>
                           </div>
@@ -584,15 +584,15 @@ export default function LendingPage() {
                         <td className="px-6 py-4 whitespace-nowrap text-gray-400">
                           {item.date}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">ETH</td>
+                        <td className="px-6 py-4 whitespace-nowrap">Dollar</td>
                         <td className="px-6 py-4 whitespace-nowrap text-indigo-400">
                           {activeTab}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          {item.amount} ETH
+                          {item.amount} Dollar
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          {item.amount} ETH
+                          {item.amount} Dollar
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {item.status ? (
@@ -619,15 +619,15 @@ export default function LendingPage() {
                         <td className="px-6 py-4 whitespace-nowrap text-gray-400">
                           {item.date}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap">ETH</td>
+                        <td className="px-6 py-4 whitespace-nowrap">Dollar</td>
                         <td className="px-6 py-4 whitespace-nowrap text-indigo-400">
                           {activeTab}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          {item.collateralAmount} ETH
+                          {item.collateralAmount} Dollar
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          {item.borrowAmount} ETH
+                          {item.borrowAmount} Dollar
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {item.borrowAmount == 0 ? (
@@ -646,7 +646,7 @@ export default function LendingPage() {
                               className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600
                                text-white hover:shadow-lg hover:shadow-indigo-500/20 transition-all"
                             >
-                              Repay Your ETH
+                              Repay Your Dollar
                             </button>
                           )}
                         </td>

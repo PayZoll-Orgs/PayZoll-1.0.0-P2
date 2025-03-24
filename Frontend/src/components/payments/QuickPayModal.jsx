@@ -58,7 +58,7 @@ export default function QuickPayModal({
                   <div>
                     <h3 className="font-semibold">Total Amount</h3>
                     <div className="text-2xl font-bold text-indigo-400">
-                      {totalSalary} ETH
+                      {totalSalary} Dollar
                     </div>
                   </div>
                 </div>

@@ -100,7 +100,7 @@ export default function TransactionsLog({ payrollHistory }) {
               </div>
               <div className="text-right">
                 <div className={`font-semibold 'text-gray-300'`}>
-                  {payroll.totalAmount.$numberDecimal} ETH
+                  {payroll.totalAmount.$numberDecimal} Dollar
                 </div>
                 <div className="text-sm text-gray-400">
                   {getTimeAgo(payroll._id.createdAt)}

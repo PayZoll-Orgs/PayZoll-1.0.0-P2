@@ -21,7 +21,7 @@ import { backendDomain } from "../../constant/domain";
 //     employeeId: 'EMP001',
 //     department: 'Engineering',
 //     designation: 'Senior Developer',
-//     salary: '5.5 ETH',
+//     salary: '5.5 Dollar',
 //     walletAddress: '0x1234...5678',
 //     status: 'Active'
 //   },
@@ -31,7 +31,7 @@ import { backendDomain } from "../../constant/domain";
 //     employeeId: 'EMP002',
 //     department: 'Marketing',
 //     designation: 'Marketing Manager',
-//     salary: '4.8 ETH',
+//     salary: '4.8 Dollar',
 //     walletAddress: '0x8765...4321',
 //     status: 'Active'
 //   },
@@ -41,7 +41,7 @@ import { backendDomain } from "../../constant/domain";
 //     employeeId: 'EMP003',
 //     department: 'Sales',
 //     designation: 'Sales Director',
-//     salary: '6.2 ETH',
+//     salary: '6.2 Dollar',
 //     walletAddress: '0x9876...5432',
 //     status: 'Active'
 //   }
@@ -132,13 +132,13 @@ export default function EmployeeTable({
             <div className="flex items-center space-x-4">
               <input
                 type="number"
-                placeholder="Min ETH"
+                placeholder="Min Dollar"
                 className="w-full bg-crypto-dark border border-gray-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500"
               />
               <span>-</span>
               <input
                 type="number"
-                placeholder="Max ETH"
+                placeholder="Max Dollar"
                 className="w-full bg-crypto-dark border border-gray-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-indigo-500"
               />
             </div>
@@ -156,7 +156,7 @@ export default function EmployeeTable({
                 { field: "employeeId", label: "Employee ID" },
                 { field: "dateOfJoining", label: "Date Of Joining" },
                 { field: "designation", label: "Designation" },
-                { field: "salary", label: "Salary (ETH)" },
+                { field: "salary", label: "Salary (Dollar)" },
                 { field: "walletAddress", label: "Wallet Address" },
                 { field: "status", label: "Status" },
                 { field: "actions", label: "Actions" },
@@ -203,7 +203,7 @@ export default function EmployeeTable({
                   {employee.designation}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-gray-400">
-                  {employee.salary.$numberDecimal} ETH
+                  {employee.salary.$numberDecimal} Dollar
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center space-x-2">

@@ -40,11 +40,11 @@ async function depositEther(signer, amountInEth) {
     await tx.wait();
     console.log("Deposit confirmed!");
   } catch (error) {
-    console.error("Error depositing Ether:", error);
+    console.error("Error depositing Dollar:", error);
   }
 }
 
-// Function to withdraw Ether
+// Function to withdraw Dollar
 async function withdrawEther(signer, amountInEth) {
   try {
     const contract = new Contract(
@@ -58,7 +58,7 @@ async function withdrawEther(signer, amountInEth) {
     await tx.wait();
     console.log("Withdraw confirmed!");
   } catch (error) {
-    console.error("Error withdrawing Ether:", error);
+    console.error("Error withdrawing Dollar:", error);
   }
 }
 
