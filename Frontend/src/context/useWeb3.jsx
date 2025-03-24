@@ -400,15 +400,29 @@ export const Web3Provider = ({ children }) => {
       );
 
       // Wait for receipt with timeout
-      const receipt = await Promise.race([
-        tx.wait(),
-        new Promise((_, reject) => {
-          setTimeout(() => reject(new Error("Transaction confirmation timed out")), 120000);
-        }),
-      ]);
+      try {
+        const receipt = await Promise.race([
+          tx.wait(),
+          new Promise((_, reject) => {
+            setTimeout(() => reject(new Error("Transaction confirmation timed out")), 120000);
+          }),
+        ]);
 
-      showNotification("success", "Bulk transfer completed successfully!");
-      return { success: true, receipt, tx };
+        showNotification("success", "Bulk transfer completed successfully!");
+        return { success: true, receipt, tx };
+      } catch (error) {
+        console.error("Receipt wait error:", error);
+
+        // Check if this is a network change error
+        if (error.message && error.message.includes("network changed")) {
+          // This is an expected network change, transaction likely still succeeded
+          showNotification("info", "Network changed, but transaction was sent. Check explorer for confirmation.");
+          return { success: true, pendingTx: tx, networkChanged: true };
+        }
+
+        // Re-throw for the outer catch block to handle
+        throw error;
+      }
     } catch (error) {
       console.error("Bulk transfer error:", error);
 
@@ -420,7 +434,7 @@ export const Web3Provider = ({ children }) => {
         errorMsg = error.error.message;
       }
 
-      showNotification("error", errorMsg);
+      // showNotification("error", errorMsg);
       return { success: false, error };
     }
   };
