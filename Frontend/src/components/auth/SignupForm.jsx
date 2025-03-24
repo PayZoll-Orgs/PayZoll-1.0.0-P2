@@ -24,22 +24,22 @@ function SignupForm() {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    const address = await deployContract(
-      signer,
-      data.tokenName,
-      data.tokenSymbol,
-      ethers.parseUnits(data.initialSupply, 18)
-    );
-    console.log("Contract Address: ", address);
+    // const address = await deployContract(
+    //   signer,
+    //   "TTT",
+    //   "TTT",
+    //   ethers.parseUnits("1000", 18)
+    // );
+    // console.log("Contract Address: ", address);
 
     const registerData = {
       email: data.email,
       password: data.confirmPassword,
       name: data.companyName,
-      contractAddress: address,
-      tokenName: data.tokenName,
-      tokenSymbol: data.tokenSymbol,
-      tokenCount: data.initialSupply,
+      contractAddress: "0x0000000000000000000000000000000000000000",
+      tokenName: "TTT",
+      tokenSymbol: "TTT",
+      tokenCount: 1000,
     };
 
     try {
@@ -132,7 +132,7 @@ function SignupForm() {
         })}
       />
 
-      <FormInput
+      {/* <FormInput
         label="ESOP/RSU Token Name"
         type="text"
         placeholder="Enter token name"
@@ -144,9 +144,9 @@ function SignupForm() {
             message: "Token name must be at least 2 characters",
           },
         })}
-      />
+      /> */}
 
-      <FormInput
+      {/* <FormInput
         label="ESOP/RSU Token Symbol"
         type="text"
         placeholder="Enter token symbol"
@@ -158,9 +158,9 @@ function SignupForm() {
             message: "Token symbol must not exceed 5 characters",
           },
         })}
-      />
+      /> */}
 
-      <FormInput
+      {/* <FormInput
         label="Initial Supply"
         type="number"
         placeholder="Enter initial supply"
@@ -172,7 +172,7 @@ function SignupForm() {
             message: "Initial supply must be at least 1",
           },
         })}
-      />
+      /> */}
 
       <button
         type="submit"

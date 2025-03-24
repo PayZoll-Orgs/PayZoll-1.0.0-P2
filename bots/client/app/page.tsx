@@ -102,7 +102,7 @@ export default function Home() {
         return content
           .map(
             (emp: any) =>
-              `### ${emp.name}\n**Position:** ${emp.position}\n**Department:** ${emp.department}\n**Account:** ${emp.accountId}\n**Salary:** ${emp.salary} ETH\n**Hours:** ${emp.work_hours}`
+              `### ${emp.name}\n**Position:** ${emp.position}\n**Department:** ${emp.department}\n**Account:** ${emp.accountId}\n**Salary:** ${emp.salary} Dollars\n**Hours:** ${emp.work_hours}`
           )
           .join("\n\n---\n\n");
       }
@@ -114,7 +114,7 @@ export default function Home() {
             `### Transaction ${tx.tx_hash.substring(0, 8)}...${tx.tx_hash.substring(tx.tx_hash.length - 6)}\n` +
             `**Status:** ${tx.status === 1 ? "✅ Success" : "❌ Failed"}\n` +
             `**Recipient:** ${tx.recipient || "N/A"}\n` +
-            `**Amount:** ${tx.amount || "N/A"} ETH\n` +
+            `**Amount:** ${tx.amount || "N/A"} Dollars\n` +
             `**Time:** ${tx.timestamp || "N/A"}`
           )
           .join("\n\n---\n\n");

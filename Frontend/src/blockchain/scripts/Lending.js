@@ -49,8 +49,7 @@ async function withdrawEther(signer, amountInEth) {
   try {
     const contract = new Contract(
         lendingContractAddress,
-        lendingJson.abi,
-        signer
+        lendingJson.abi,        signer
       );
     const amountInWei = ethers.parseEther(amountInEth);
     const tx = await contract.withdraw(amountInWei);
