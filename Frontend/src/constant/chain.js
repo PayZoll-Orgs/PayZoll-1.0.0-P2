@@ -29,7 +29,7 @@ export const CHAINS = [
         name: "BNB Chain Mainnet",
         chainId: 56,
         rpcUrl: "https://binance.llamarpc.com",
-        contractAddress: "0xYourContractAddressOnBNBMainnet",
+        contractAddress: "0x2c137aC6Bc804A9F798053347802F489F0025768",
         tokens: [
             { symbol: "BNB", address: "0x0000000000000000000000000000000000000000", decimals: 18 },
             { symbol: "USDT", address: "0x55d398326f99059fF775485246999027B3197955", decimals: 18 },
