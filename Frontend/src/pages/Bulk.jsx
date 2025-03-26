@@ -110,22 +110,6 @@ function Bulk() {
         fetchEmployees();
     }, []);
 
-    // const fetchEmployees = async () => {
-    //     setIsLoadingEmployees(true);
-    //     try {
-    //         await new Promise(resolve => setTimeout(resolve, 1000));
-    //         setEmployees(dummyEmployeeData);
-    //         const initialSelected = {};
-    //         dummyEmployeeData.forEach(emp => {
-    //             initialSelected[emp.id] = true;
-    //         });
-    //         setSelectedEmployees(initialSelected);
-    //     } catch (error) {
-    //         console.error("Error fetching employee data:", error);
-    //     } finally {
-    //         setIsLoadingEmployees(false);
-    //     }
-    // };
     const fetchEmployees = async () => {
         setIsLoadingEmployees(true);
         try {
@@ -139,9 +123,12 @@ function Bulk() {
                 }
             );
 
-            setEmployees(response.data.employee);
+            const fetchedEmployees = response.data.employee;
+            setEmployees(fetchedEmployees);
+
+            // Use the fetched employees data directly instead of the state
             const initialSelected = {};
-            employees.forEach(emp => {
+            fetchedEmployees.forEach(emp => {
                 initialSelected[emp._id] = true;
             });
             setSelectedEmployees(initialSelected);
@@ -187,11 +174,44 @@ function Bulk() {
             if (selectedEmps.length === 0) {
                 throw new Error("Please select at least one employee to pay");
             }
+
             const recipientAddresses = selectedEmps.map(emp => emp.accountId);
             const amounts = selectedEmps.map(emp => emp.salary.$numberDecimal);
-            await sendBulkTransfer(recipientAddresses, amounts);
+
+            let result;
+
+            // If only one employee selected, use direct transfer methods
+            if (selectedEmps.length === 1) {
+                // Check if we're using native token or ERC20
+                const isNativeToken = selectedToken.address === NATIVE_TOKEN_ADDRESS;
+
+                if (isNativeToken) {
+                    result = await sendDirectNativeTransfer(recipientAddresses[0], amounts[0]);
+                    if (result && result.success) {
+                        showNotification('success', `Successfully paid ${selectedEmps[0].name}!`);
+                    } else {
+                        throw new Error("Transaction failed");
+                    }
+                } else {
+                    result = await sendDirectERC20Transfer(recipientAddresses[0], amounts[0]);
+                    if (result && result.success) {
+                        showNotification('success', `Successfully paid ${selectedEmps[0].name}!`);
+                    } else {
+                        throw new Error("Transaction failed");
+                    }
+                }
+            } else {
+                // Multiple employees - use bulk transfer
+                result = await sendBulkTransfer(recipientAddresses, amounts);
+                if (result && result.success) {
+                    showNotification('success', 'Successfully paid all selected employees!');
+                } else {
+                    throw new Error("Transaction failed");
+                }
+            }
         } catch (error) {
             console.error("Error paying employees:", error);
+            showNotification('error', `Payment failed: ${error.message}`);
         } finally {
             setIsLoading(false);
         }
@@ -254,6 +274,69 @@ function Bulk() {
         return valid;
     };
 
+    // New direct transfer functions
+    const sendDirectERC20Transfer = async (address, amount) => {
+        try {
+            if (!window.ethereum || !account) {
+                throw new Error("Wallet not connected");
+            }
+
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
+
+            // Create contract instance
+            const tokenContract = new ethers.Contract(
+                selectedToken.address,
+                [
+                    "function transfer(address to, uint256 amount) returns (bool)",
+                    "function decimals() view returns (uint8)",
+                ],
+                signer
+            );
+
+            // Get token decimals
+            const decimals = await tokenContract.decimals();
+
+            // Convert amount to proper format with decimals
+            const tokenAmount = ethers.parseUnits(amount.toString(), decimals);
+
+            // Send transaction
+            const tx = await tokenContract.transfer(address, tokenAmount);
+            await tx.wait();
+
+            return { success: true, txHash: tx.hash };
+        } catch (error) {
+            console.error("Direct ERC20 transfer error:", error);
+            throw error;
+        }
+    };
+
+    const sendDirectNativeTransfer = async (address, amount) => {
+        try {
+            if (!window.ethereum || !account) {
+                throw new Error("Wallet not connected");
+            }
+
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
+
+            // Convert amount to wei (18 decimals for most native tokens)
+            const nativeAmount = ethers.parseEther(amount.toString());
+
+            // Send transaction
+            const tx = await signer.sendTransaction({
+                to: address,
+                value: nativeAmount
+            });
+            await tx.wait();
+
+            return { success: true, txHash: tx.hash };
+        } catch (error) {
+            console.error("Direct native transfer error:", error);
+            throw error;
+        }
+    };
+
     const handleP2PTransfer = async () => {
         if (!validateRecipients()) {
             return;
@@ -264,12 +347,37 @@ function Bulk() {
             const addresses = recipients.map(r => r.address);
             const amounts = recipients.map(r => r.amount);
 
-            const result = await sendBulkTransfer(addresses, amounts);
+            let result;
 
-            if (result && result.success) {
-                showNotification('success', 'P2P transfers completed successfully!');
-                // Reset form after successful transfer
-                setRecipients([{ address: '', amount: '' }]);
+            // If only one recipient, use direct transfer methods
+            if (recipients.length === 1) {
+                // Check if we're using native token or ERC20
+                const isNativeToken = selectedToken.address === NATIVE_TOKEN_ADDRESS;
+
+                if (isNativeToken) {
+                    result = await sendDirectNativeTransfer(addresses[0], amounts[0]);
+                } else {
+                    result = await sendDirectERC20Transfer(addresses[0], amounts[0]);
+                }
+
+                if (result && result.success) {
+                    showNotification('success', 'Transfer completed successfully!');
+                    // Reset form after successful transfer
+                    setRecipients([{ address: '', amount: '' }]);
+                } else {
+                    throw new Error("Transaction failed");
+                }
+            } else {
+                // Multiple recipients - use bulk transfer
+                result = await sendBulkTransfer(addresses, amounts);
+
+                if (result && result.success) {
+                    showNotification('success', 'P2P transfers completed successfully!');
+                    // Reset form after successful transfer
+                    setRecipients([{ address: '', amount: '' }]);
+                } else {
+                    throw new Error("Transaction failed");
+                }
             }
         } catch (error) {
             console.error("P2P transfer error:", error);
