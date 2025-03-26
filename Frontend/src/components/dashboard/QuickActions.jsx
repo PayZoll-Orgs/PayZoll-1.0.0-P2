@@ -44,7 +44,7 @@ export default function QuickActions({ isWalletConnected }) {
       icon: Users,
       label: "Pay Employees",
       color: "from-indigo-600 to-purple-600",
-      onClick: () => navigate("/employer/payments"),
+      onClick: () => navigate("/bulk"),
     },
     {
       icon: UserPlus,

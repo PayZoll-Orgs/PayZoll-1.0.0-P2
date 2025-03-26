@@ -37,13 +37,14 @@ function SignupForm() {
     const randomTokenSymbol = generateRandomLetters(3);
     const randomTokenName = randomTokenSymbol;
 
-    const address = await deployContract(
-      signer,
-      randomTokenName,
-      randomTokenSymbol,
-      ethers.parseUnits("1000", 18)
-    );
-    console.log("Contract Address: ", address);
+    // const address = await deployContract(
+    //   signer,
+    //   randomTokenName,
+    //   randomTokenSymbol,
+    //   ethers.parseUnits("1000", 18)
+    // );
+    // console.log("Contract Address: ", address);
+    const address = "0x" + "0".repeat(40);
 
     const registerData = {
       email: data.email,
