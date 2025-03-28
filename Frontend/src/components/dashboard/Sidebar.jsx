@@ -16,6 +16,7 @@ const menuItems = [
   { icon: Users, label: "Employees", path: "/employer/employees" },
   // { icon: BadgeDollarSign, label: "Payments", path: "/employer/payments" },
   { icon: BadgeDollarSign, label: "Payments", path: "/bulk" },
+  { icon: BadgeDollarSign, label: "Stellar-Pay", path: "/stellar" },
   // { icon: Award, label: "ESOPS/RSU", path: "/employer/esops" },
   // { icon: Settings, label: "Settings", path: "/employer/settings" },
 ];

@@ -13,6 +13,14 @@ import LendingPage from "./pages/LendingPage";
 import BotIntro from "./components/BotIntro.jsx";
 import Bulk from "./pages/Bulk.jsx";
 import AptosBulk from "./pages/AptosBulk.jsx";
+import StellarIntro from "./pages/StellarIntro.jsx";
+import { Buffer } from 'buffer';
+import StellarSwap from "./pages/StellarSwap.jsx";
+import StellarBulk from "./pages/StellarBulk.jsx";
+
+
+window.Buffer = Buffer;
+
 
 export default function App() {
   const EmployerRoutes = () => (
@@ -39,6 +47,9 @@ export default function App() {
         {/* Wrap employer-specific routes in Web3Provider */}
         <Route path="/*" element={<EmployerRoutes />} />
         <Route path="/aptos" element={<AptosBulk />} />
+        <Route path="/stellar" element={<StellarIntro />} />
+        <Route path="/stellar-swap" element={<StellarSwap />} />
+        <Route path="/stellar-bulk" element={<StellarBulk />} />
       </Routes>
     </Router>
   );
