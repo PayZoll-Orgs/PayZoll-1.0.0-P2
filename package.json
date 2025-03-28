@@ -6,7 +6,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "author": "",
+  "engines": {
+    "node": ">=20.18.0"
+  },
+  "author": "Abhinav Pangaria",
   "license": "ISC",
   "description": "",
   "dependencies": {
