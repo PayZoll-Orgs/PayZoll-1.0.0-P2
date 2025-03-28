@@ -42,6 +42,7 @@ export default function StellarSwap() {
     const [statusType, setStatusType] = useState('default');
     const [step, setStep] = useState(0);
     const [isInitialRender, setIsInitialRender] = useState(true);
+    const [copied, setCopied] = useState(false);
 
     useEffect(() => {
         setIsInitialRender(false);
@@ -165,6 +166,19 @@ export default function StellarSwap() {
             setStatusType('error');
         } finally {
             setLoading(false);
+        }
+    };
+
+    const truncateAddress = (addr) => {
+        if (!addr) return '';
+        return `${addr.substring(0, 6)}...${addr.substring(addr.length - 4)}`;
+    };
+
+    const copyToClipboard = () => {
+        if (address) {
+            navigator.clipboard.writeText(address);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
         }
     };
 
@@ -305,6 +319,26 @@ export default function StellarSwap() {
                             </div>
                         </div>
 
+                        {address && (
+                            <div className="px-6 py-3 bg-gray-900/40 border-b border-gray-800/50 flex items-center justify-between">
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                                    <span className="text-sm text-gray-400">Connected:</span>
+                                    <span className="text-sm font-mono text-white">{truncateAddress(address)}</span>
+                                </div>
+                                <motion.button
+                                    onClick={copyToClipboard}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="text-xs text-blue-400 hover:text-blue-300 bg-blue-900/20 border border-blue-700/30 rounded-md px-2 py-1 transition-colors flex items-center space-x-1"
+                                >
+                                    <span>{copied ? 'Copied!' : 'Copy'}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+                                    </svg>
+                                </motion.button>
+                            </div>
+                        )}
 
                         {/* Form Content */}
                         <div className="p-6 space-y-6">
@@ -488,8 +522,8 @@ export default function StellarSwap() {
                             <div key={i} className="flex flex-col items-center space-y-2">
                                 <div
                                     className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${step >= i
-                                            ? 'bg-blue-600 text-white'
-                                            : 'bg-gray-800 text-gray-400 border border-gray-700'
+                                        ? 'bg-blue-600 text-white'
+                                        : 'bg-gray-800 text-gray-400 border border-gray-700'
                                         }`}
                                 >
                                     {i}

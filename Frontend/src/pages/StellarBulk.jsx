@@ -47,11 +47,25 @@ export default function StellarBulk() {
     const [statusType, setStatusType] = useState('default'); // 'default', 'success', 'error'
     const [isProcessing, setIsProcessing] = useState(false);
     const [showContent, setShowContent] = useState(false);
+    const [copied, setCopied] = useState(false);
 
     useEffect(() => {
         // Show content with delay for entrance animation
         setTimeout(() => setShowContent(true), 500);
     }, []);
+
+    const truncateAddress = (addr) => {
+        if (!addr) return '';
+        return `${addr.substring(0, 6)}...${addr.substring(addr.length - 4)}`;
+    };
+
+    const copyToClipboard = () => {
+        if (address) {
+            navigator.clipboard.writeText(address);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        }
+    };
 
     const submitTransfer = async () => {
         // Validate inputs
@@ -226,6 +240,27 @@ export default function StellarBulk() {
                             </div>
                         </div>
 
+                        {address && (
+                            <div className="px-6 py-3 bg-gray-900/40 border-b border-gray-800/50 flex items-center justify-between">
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                                    <span className="text-sm text-gray-400">Connected:</span>
+                                    <span className="text-sm font-mono text-white">{truncateAddress(address)}</span>
+                                </div>
+                                <motion.button
+                                    onClick={copyToClipboard}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="text-xs text-blue-400 hover:text-blue-300 bg-blue-900/20 border border-blue-700/30 rounded-md px-2 py-1 transition-colors flex items-center space-x-1"
+                                >
+                                    <span>{copied ? 'Copied!' : 'Copy'}</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+                                    </svg>
+                                </motion.button>
+                            </div>
+                        )}
+
                         <div className="p-6 space-y-6">
                             {/* Token Selection */}
                             <motion.div variants={itemVariants} className="space-y-2">
@@ -234,8 +269,8 @@ export default function StellarBulk() {
                                     <div
                                         onClick={() => setSelectedToken('native')}
                                         className={`flex-1 flex items-center justify-center space-x-2 p-3 rounded-xl cursor-pointer transition-all ${selectedToken === 'native'
-                                                ? 'bg-blue-900/30 border border-blue-500/30'
-                                                : 'bg-gray-800/30 border border-gray-700/50 hover:bg-gray-800/50'
+                                            ? 'bg-blue-900/30 border border-blue-500/30'
+                                            : 'bg-gray-800/30 border border-gray-700/50 hover:bg-gray-800/50'
                                             }`}
                                     >
                                         <div className="w-8 h-8 rounded-full bg-blue-900/50 flex items-center justify-center">
@@ -247,8 +282,8 @@ export default function StellarBulk() {
                                     <div
                                         onClick={() => setSelectedToken('usdc')}
                                         className={`flex-1 flex items-center justify-center space-x-2 p-3 rounded-xl cursor-pointer transition-all ${selectedToken === 'usdc'
-                                                ? 'bg-blue-900/30 border border-blue-500/30'
-                                                : 'bg-gray-800/30 border border-gray-700/50 hover:bg-gray-800/50'
+                                            ? 'bg-blue-900/30 border border-blue-500/30'
+                                            : 'bg-gray-800/30 border border-gray-700/50 hover:bg-gray-800/50'
                                             }`}
                                     >
                                         <div className="w-8 h-8 rounded-full bg-green-900/50 flex items-center justify-center">
@@ -347,14 +382,14 @@ export default function StellarBulk() {
                                         exit={{ opacity: 0, y: -10 }}
                                         transition={{ type: "spring", stiffness: 200, damping: 20 }}
                                         className={`p-4 rounded-xl ${statusType === 'success' ? 'bg-green-900/20 border border-green-800/50' :
-                                                statusType === 'error' ? 'bg-red-900/20 border border-red-800/50' :
-                                                    'bg-gray-800/30 border border-gray-700/50'
+                                            statusType === 'error' ? 'bg-red-900/20 border border-red-800/50' :
+                                                'bg-gray-800/30 border border-gray-700/50'
                                             }`}
                                     >
                                         <div className="flex items-start space-x-3">
                                             <div className={`p-1.5 rounded-full ${statusType === 'success' ? 'bg-green-500/80' :
-                                                    statusType === 'error' ? 'bg-red-500/80' :
-                                                        'bg-blue-500/80'
+                                                statusType === 'error' ? 'bg-red-500/80' :
+                                                    'bg-blue-500/80'
                                                 }`}>
                                                 {statusType === 'success' ? (
                                                     <Check className="w-4 h-4" />
@@ -366,8 +401,8 @@ export default function StellarBulk() {
                                             </div>
                                             <div className="flex-1">
                                                 <p className={`text-sm font-medium ${statusType === 'success' ? 'text-green-400' :
-                                                        statusType === 'error' ? 'text-red-400' :
-                                                            'text-blue-400'
+                                                    statusType === 'error' ? 'text-red-400' :
+                                                        'text-blue-400'
                                                     }`}>
                                                     {statusType === 'success' ? 'Success' :
                                                         statusType === 'error' ? 'Error' :
