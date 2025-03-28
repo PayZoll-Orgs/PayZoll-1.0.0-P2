@@ -13,6 +13,19 @@ export default {
         float: 'float 6s ease-in-out infinite',
         glow: 'glow 3s ease-in-out infinite',
         'spin-slow': 'spin 20s linear infinite',
+        'gradient': 'gradient 8s linear infinite',
+      },
+      keyframes: {
+        gradient: {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center'
+          },
+        },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

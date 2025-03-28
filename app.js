@@ -2,10 +2,10 @@ const cors = require("cors");
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const { ethers } = require("ethers");
+const StellarSdk = require('@stellar/stellar-sdk');
 
 const port = 5001;
-const prefix = "/api/v1";
+
 
 // Allow multiple origins
 const allowedOrigins = [
@@ -47,6 +47,7 @@ const tokenRouter = require("./routes/tokenrouter");
 const employeeRouter = require("./routes/employeeRouter");
 const lendingRouter = require("./routes/lendingRouter");
 const borrowingRouter = require("./routes/borrowingRouter");
+const { validationResult } = require('express-validator');
 
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
@@ -76,84 +77,105 @@ app.use(
   employeeRouter
 );
 
-async function silentBulkTransfer(privateKey, rpcUrl, employees, onStatus) {
+const HORIZON_URL = 'https://horizon-testnet.stellar.org';
+const server = new StellarSdk.Horizon.Server(HORIZON_URL);
+
+
+async function sendUsdc(recipient, amount) {
   try {
-    const provider = new ethers.JsonRpcProvider(rpcUrl);
-    const wallet = new ethers.Wallet(privateKey, provider);
-    const recipients = employees.map((employee) => employee.accountId);
-    const values = employees.map((employee) => {
-      if (!employee.salary) {
-        throw new Error(`Invalid salary for employee: ${employee.name}`);
-      }
-      return ethers.parseEther(String(employee.salary));
-    });
+    console.log('Starting USDC transfer process...');
 
-    let nonce = await provider.getTransactionCount(wallet.address, "pending");
+    // Step 1: Get credentials
+    console.log('Step 1: Loading credentials and configuration');
+    const serviceAuth = process.env.SERVICE_CONTRACT_AUTH;
+    const serviceAddress = process.env.SERVICE_CONTRACT_ADDRESS;
+    const usdcIssuer = process.env.USDC_ISSUER;
 
-    const receipts = [];
-    for (let i = 0; i < recipients.length; i++) {
-      const tx = {
-        to: recipients[i],
-        value: values[i],
-        nonce: nonce++,
-        gasLimit: 21000,
-        maxPriorityFeePerGas: ethers.parseUnits("2", "gwei"),
-        maxFeePerGas: ethers.parseUnits("50", "gwei"),
-      };
-
-      const sentTx = await wallet.sendTransaction(tx);
-      onStatus(`Transaction sent to ${recipients[i]}: ${sentTx.hash}`);
-      const receipt = await sentTx.wait();
-      receipts.push(receipt);
+    if (!serviceAuth || !serviceAddress || !usdcIssuer) {
+      throw new Error('Missing required environment variables');
     }
 
-    return receipts;
+    // Step 2: Create keypair from secret
+    console.log('Step 2: Creating service account keypair');
+    const serviceKeypair = StellarSdk.Keypair.fromSecret(serviceAuth);
+
+    // Step 3: Load account details
+    console.log('Step 3: Loading account from Stellar network');
+    const account = await server.loadAccount(serviceAddress);
+    console.log(`Account loaded: ${serviceAddress}`);
+
+    // Step 4: Fetch network base fee
+    console.log('Step 4: Fetching network base fee');
+    const fee = await server.fetchBaseFee();
+    console.log(`Current base fee: ${fee}`);
+
+    // Step 5: Create asset object
+    console.log('Step 5: Creating USDC asset object');
+    const usdcAsset = new StellarSdk.Asset('USDC', usdcIssuer);
+
+    // Step 6: Build transaction
+    console.log(`Step 6: Building transaction to send ${amount} USDC to ${recipient}`);
+    const transaction = new StellarSdk.TransactionBuilder(account, {
+      fee: fee.toString(),
+      networkPassphrase: StellarSdk.Networks.TESTNET,
+    })
+      .addOperation(StellarSdk.Operation.payment({
+        destination: recipient,
+        asset: usdcAsset,
+        amount: parseFloat(amount).toFixed(7),
+      }))
+      .setTimeout(30)
+      .build();
+
+    // Step 7: Sign transaction
+    console.log('Step 7: Signing transaction with service account');
+    transaction.sign(serviceKeypair);
+
+    // Step 8: Submit transaction
+    console.log('Step 8: Submitting transaction to Stellar network');
+    const result = await server.submitTransaction(transaction);
+    console.log(`Transaction successful! Hash: ${result.hash}, Ledger: ${result.ledger}`);
+
+    return {
+      success: true,
+      hash: result.hash,
+      ledger: result.ledger
+    };
+
   } catch (error) {
-    onStatus(`Error: ${error.message}`);
-    throw error;
+    console.error('USDC transfer failed:', error);
+    console.error('Error details:', error.response?.data || 'No additional details');
+    throw new Error(`Transfer failed: ${error.message}`);
   }
 }
 
-
-app.post("/bulk-transfer", async (req, res) => {
+app.post("/stellar/transfer/usdc", async (req, res) => {
   try {
-    const { employees, rpcUrl } = req.body;
-    if (!employees || !Array.isArray(employees)) {
-      return res.status(400).json({ error: "Invalid employees list" });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
 
-    console.log("Received request for bulk transfer");
-    console.log("rpcUrl:", rpcUrl);
-    console.log("Employees:", employees);
+    console.log('Received USDC transfer request');
 
-    const receipts = await silentBulkTransfer(
-      process.env.PRIVATE_KEY,
-      rpcUrl,
-      employees,
-      console.log
-    );
+    const { recipient, amount } = req.body;
+    console.log(`Processing transfer of ${amount} USDC to ${recipient}`);
 
-    res.json({ success: true, receipts });
+    // Execute transfer
+    const result = await sendUsdc(recipient, amount);
+
+    console.log('Transfer completed successfully');
+    res.json({
+      success: true,
+      transaction: result
+    });
+
   } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-
-app.post("/check-rpc", async (req, res) => {
-  try {
-    console.log("Req-body", req.body);
-    const { rpcUrl } = req.body;
-    if (!rpcUrl) {
-      return res.status(400).json({ error: "Invalid RPC URL" });
-    }
-
-    const provider = new ethers.JsonRpcProvider(rpcUrl);
-    const network = await provider.getNetwork();
-
-    res.json({ success: true, network });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('API error in /stellar/transfer/usdc:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
   }
 });
 
