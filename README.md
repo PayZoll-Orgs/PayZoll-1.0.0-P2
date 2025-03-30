@@ -1,5 +1,3 @@
-Below is the complete markdown code for your revised README, incorporating the details on multi-chain support including EVM and Aptos, and emphasizing that you're now building a more stable, better version on Stellar.
-
 # PayZoll: The Future of Decentralized Payroll on Stellar 🌍💸
 
 Welcome to **PayZoll**, the decentralized payroll platform that leverages blockchain, AI, and the innovative features of the Stellar ecosystem to transform global payroll processing. Designed for both startups and global enterprises, PayZoll ensures secure, efficient, and cost-effective payrolls across borders with multi-token support.
