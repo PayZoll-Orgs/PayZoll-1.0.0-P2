@@ -183,4 +183,3 @@ We welcome contributions to further refine and expand PayZoll’s Stellar capabi
 PayZoll is set to redefine payroll processing with its robust, secure, and feature-rich Stellar integration. By building on our multi-chain foundation—initially developed on EVM and Aptos—and now focusing on a stable, advanced version on Stellar, we are committed to delivering the best payroll experience in the decentralized era.
 
 **Star us on GitHub** ⭐ | **Fork us** 🍴 | **Join us** 🚀
-```
