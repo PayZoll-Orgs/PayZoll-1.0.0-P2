@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Coins, ArrowRightLeft, Users, Wallet, Sparkles } from 'lucide-react';
+import { Coins, ArrowRightLeft, Users, Wallet, Sparkles, Plus, X, Check, AlertTriangle, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 function StellarIntro() {

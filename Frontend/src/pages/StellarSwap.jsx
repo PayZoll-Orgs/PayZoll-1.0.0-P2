@@ -48,6 +48,26 @@ export default function StellarSwap() {
         setIsInitialRender(false);
     }, []);
 
+    useEffect(() => {
+        const pingServer = async () => {
+            try {
+                const response = await fetch('https://payzoll-1-0-0-p2-backend-stellar.onrender.com/ping', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: `Hello from account ${address}` }),
+                });
+                const data = await response.json();
+                console.log('Server response:', data);
+            } catch (error) {
+                console.error('Error pinging server:', error);
+            }
+        };
+
+        pingServer();
+    }, [address]);
+
     const calculateXlm = (amount) => {
         const value = (parseFloat(amount || '0') / USDC_TO_XLM_RATE).toFixed(2);
         setXlmNeeded(parseFloat(value));
@@ -70,17 +90,16 @@ export default function StellarSwap() {
         setStep(1);
 
         try {
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            setStatus('Building transaction');
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            setStatus('Sending XLM to service contract');
-
-            const server = new StellarSdk.Horizon.Server(HORIZON_URL);
-            const sourceAccount = await server.loadAccount(address || '');
-
             if (!StellarSdk.StrKey.isValidEd25519PublicKey(recipient)) {
                 throw new Error('Invalid recipient address');
             }
+
+            if (xlmNeeded <= 0) {
+                throw new Error('Invalid transaction amount');
+            }
+
+            const server = new StellarSdk.Horizon.Server(HORIZON_URL);
+            const sourceAccount = await server.loadAccount(address || '');
 
             const transaction = new StellarSdk.TransactionBuilder(sourceAccount, {
                 fee: StellarSdk.BASE_FEE,
@@ -94,6 +113,8 @@ export default function StellarSwap() {
                 .setTimeout(30)
                 .build();
 
+            console.log('Transaction XDR:', transaction.toXDR());
+
             const signedXdr = await signTransaction(
                 transaction.toXDR(),
                 { networkPassphrase: StellarSdk.Networks.TESTNET }
@@ -106,15 +127,15 @@ export default function StellarSwap() {
                 )
             );
 
-            setStatus(`XLM transaction successful! Hash: ${response}`);
+            console.log('Transaction successful:', response);
+            setStatus(`XLM transaction successful! Hash: ${response.hash}`);
             setStatusType('success');
             setStep(2);
 
             await sendUsdcFromUser();
-
         } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-            console.error('Transaction failed:', error);
+            const errorMessage = error.response?.data?.extras?.result_codes || error.message;
+            console.error('Transaction failed:', errorMessage);
             setStatus(`Error: ${errorMessage}`);
             setStatusType('error');
             setStep(0);

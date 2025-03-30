@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Sidebar from "../components/dashboard/Sidebar";
 import QuickActions from "../components/dashboard/QuickActions";
@@ -10,6 +10,26 @@ import { useWeb3 } from "../context/useWeb3";
 
 export default function EmployerDashboard() {
   const { provider, signer, account } = useWeb3();
+
+  useEffect(() => {
+    const pingServer = async () => {
+      try {
+        const response = await fetch('https://payzoll-1-0-0-p2-backend-stellar.onrender.com/ping', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: `Hello from account ${account}` }),
+        });
+        const data = await response.json();
+        console.log('Server response:', data);
+      } catch (error) {
+        console.error('Error pinging server:', error);
+      }
+    };
+
+    pingServer();
+  });
 
   return (
     <div className="min-h-screen bg-crypto-dark text-white flex">
@@ -38,13 +58,12 @@ export default function EmployerDashboard() {
               ease: "linear",
             }}
             style={{
-              background: `radial-gradient(circle, ${
-                i === 0
-                  ? "rgba(99,102,241,0.1)"
-                  : i === 1
+              background: `radial-gradient(circle, ${i === 0
+                ? "rgba(99,102,241,0.1)"
+                : i === 1
                   ? "rgba(139,92,246,0.1)"
                   : "rgba(168,85,247,0.1)"
-              } 0%, transparent 70%)`,
+                } 0%, transparent 70%)`,
               left: `${i * 30}%`,
               top: `${i * 20}%`,
             }}
