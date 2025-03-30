@@ -1,3 +1,4 @@
+
 # PayZoll: The Future of Decentralized Payroll on Stellar 🌍💸
 
 Welcome to **PayZoll**, the decentralized payroll platform that leverages blockchain, AI, and the innovative features of the Stellar ecosystem to transform global payroll processing. Designed for both startups and global enterprises, PayZoll ensures secure, efficient, and cost-effective payrolls across borders with multi-token support.
@@ -78,13 +79,13 @@ gantt
     title Future Stellar Development Roadmap
     dateFormat  YYYY-MM-DD
     section Current Implementation
-    Stellar Bulk Transactions     :done,    des1, 2025-03-25
-    Multi-Hop Swap Mechanism      :done,    des2, 2025-03-27
-    Enhanced Frontend             :done,    des3, 2024-03-21 - 2024-03-30
+    Stellar Bulk Transactions     :done, 2025-03-25, 2025-03-25
+    Multi-Hop Swap Mechanism      :done, 2025-03-27, 2025-03-27
+    Enhanced Frontend             :done, 2024-03-21, 2024-03-30
     section Future Developments
-    Off-Ramp Integration          :active,  des4, 2025-04-01, 2025-04-20
-    Unified Multi-Token System    :         des5, 2025-04-20, 2025-05-30
-    Advanced Analytics & AI       :         des6, 2025-04-01, 2025-05-30
+    Off-Ramp Integration          :active, 2025-04-01, 2025-04-20
+    Unified Multi-Token System    : 2025-04-20, 2025-05-30
+    Advanced Analytics & AI       : 2025-04-01, 2025-05-30
 ```
 
 ---
@@ -183,5 +184,3 @@ PayZoll is set to redefine payroll processing with its robust, secure, and featu
 
 **Star us on GitHub** ⭐ | **Fork us** 🍴 | **Join us** 🚀
 ```
-
-Feel free to adjust any sections or visuals as needed to best suit your project documentation.
