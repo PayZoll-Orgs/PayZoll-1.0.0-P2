@@ -180,6 +180,17 @@ app.post("/stellar/transfer/usdc", async (req, res) => {
 });
 
 
+app.post("/ping", async (req, res) => {
+  try {
+    const { message } = req.body;
+    console.log(`Received ping with message: ${message}`);
+    res.json({ message: `Pong: ${message}` });
+  } catch (error) {
+    console.error('API error in /ping:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 app.use("/lending", authRouter.isLoggedIn, lendingRouter);
 app.use("/borrowing", authRouter.isLoggedIn, borrowingRouter);
