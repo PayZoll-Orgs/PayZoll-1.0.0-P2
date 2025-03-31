@@ -338,4 +338,3 @@ For questions or further information, please reach out to us at:
 **Star us on GitHub** ⭐ | **Fork us** 🍴 | **Join the Revolution** 🚀
 
 *Empowering global payroll with the power of decentralized technology and Stellar’s robust ecosystem.*
-```
