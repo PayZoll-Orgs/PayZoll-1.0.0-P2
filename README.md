@@ -1,17 +1,36 @@
 
 # PayZoll: The Future of Decentralized Payroll on Stellar 🌍💸
 
-Welcome to **PayZoll**, the decentralized payroll platform that leverages blockchain, AI, and the innovative features of the Stellar ecosystem to transform global payroll processing. Designed for both startups and global enterprises, PayZoll ensures secure, efficient, and cost-effective payrolls across borders with multi-token support.
+Welcome to **PayZoll**, the cutting-edge decentralized payroll platform that harnesses blockchain, AI, and the innovative features of the Stellar ecosystem to revolutionize global payroll processing. Designed for startups and global enterprises alike, PayZoll delivers secure, efficient, and cost-effective payrolls across borders with seamless multi-token support.
 
 ---
 
-## 🚀 Overview
+## Table of Contents
 
-PayZoll bridges the gap between traditional Web2 payroll systems and next-generation Web3 solutions. Our platform has been successfully implemented on multiple chains:
-- **EVM Chains:** Basic native transfers, simple logging, and limited security.
-  
-Now, we are building a more robust and stable version on **Stellar** to fully leverage its advanced blockchain features for secure, bulk, multi-token payroll processing.
-Efficient Rust based contracts that have inherent security and scalability. Client side intraction using the Stellar SDK for ease of experience in the product.
+- [Overview](#overview)
+- [The Problem](#the-problem)
+- [Current Stellar Integration](#current-stellar-integration)
+  - [Bulk Transaction Contracts](#bulk-transaction-contracts)
+  - [Multi-Hop Swap Mechanism](#multi-hop-swap-mechanism)
+  - [Enhanced Frontend Experience](#enhanced-frontend-experience)
+- [Future Stellar Developments](#future-stellar-developments)
+- [Multi-Chain Evolution](#multi-chain-evolution)
+- [Technical Architecture](#technical-architecture)
+  - [Bulk Transfer Flow](#bulk-transfer-flow)
+  - [Swap-Based Pay Flow](#swap-based-pay-flow)
+- [Justification for Technical Decisions](#justification-for-technical-decisions)
+- [Team & Expertise](#team--expertise)
+- [Deployment & Testing Instructions](#deployment--testing-instructions)
+- [Revenue Model](#revenue-model)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+---
+
+## Overview
+
+PayZoll bridges the gap between traditional Web2 payroll systems and next-generation Web3 solutions. Initially deployed on EVM chains with basic native transfers and logging, we are now leveraging Stellar’s advanced blockchain features to create a robust, secure, and scalable payroll platform. Our solution is built using efficient Rust-based contracts and offers a seamless client-side experience with the Stellar SDK.
 
 ---
 
@@ -30,66 +49,62 @@ graph TD;
     D1 -->|Complex infrastructures| D2[Exchanges & dApps]
 ```
 
-## 🌟 Current Stellar Integration
-
-### What We Have Built
-
-**1. Stellar Bulk Transaction Contracts**  
-- **Purpose:** Execute bulk token transfers across the Stellar chain to optimize payroll processing.  
-- **Features:**  
-  - **Efficient Bulk Operations:** Processes multiple token transactions in a single operation.  
-  - **Security:** Utilizes Stellar’s inherent security measures to maintain transaction integrity.  
-
-**2. Multi-Hop Swap Mechanism**  
-- **Purpose:** Enable optimal conversion of tokens by leveraging Stellar’s Rust SDK.  
-- **Features:**  
-  - **Optimal Routes:** Finds the best conversion path, e.g., from XLM to USDC, ensuring competitive rates.  
-  - **Seamless Payroll Operations:** Simplifies cross-currency payroll processing, enhancing user experience.
-
-**3. Enhanced Frontend Experience**  
-- **Purpose:** Provide a modern and interactive UI specifically tailored for Stellar-based payroll operations.  
-- **Features:**  
-  - **Interactive Dashboards:** Visualize transactions and payroll data in real time.  
-  - **User-Centric Design:** A clean, responsive interface that supports advanced Stellar features.
-  - **Stellar_SDK:** A intuitive and clean usage of the stellar client sdk to have a smooth and efficient interactions with the contract.
-    Utilization of freighter wallets and providers for ease of funds usage and validations.
-
-### Visual: Current Stellar Architecture
-
-```mermaid
-flowchart TD
-    A[User Initiates Payroll] --> B[Frontend Interface]
-    B --> C[Stellar Bulk Transaction Contract]
-    C --> D[Multi-Hop Swap Mechanism]
-    D --> E[Stellar Ledger]
-    E --> F[Secure, Verified Transaction]
-```
+Traditional Web3 payroll systems face challenges such as:
+- **Complexity:** High learning curves for token management, wallet operations, and decentralized exchanges.
+- **Inefficient Off-Ramps:** Difficulty in converting crypto to fiat, which leads to increased costs and delays.
+- **Accessibility Issues:** Non-Web3 users find it challenging to interact with decentralized systems.
 
 ---
 
-## 🔮 Future Stellar Developments
+## Current Stellar Integration
 
-### What We Plan to Build
+### Bulk Transaction Contracts
 
-**1. Off-Ramp Integration (Planned for Later)**
+- **Purpose:** Execute bulk token transfers across the Stellar network.
+- **Features:**
+  - **Efficient Bulk Operations:** Processes multiple token transactions in a single operation.
+  - **Enhanced Security:** Leverages Stellar’s robust security measures to maintain transaction integrity.
+
+### Multi-Hop Swap Mechanism
+
+- **Purpose:** Enable optimal token conversions using Stellar’s Rust SDK.
+- **Features:**
+  - **Optimal Route Discovery:** Finds the best conversion paths (e.g., XLM to USDC) to ensure competitive rates.
+  - **Seamless Payroll Operations:** Simplifies cross-currency payroll processing, enhancing the user experience.
+
+### Enhanced Frontend Experience
+
+- **Purpose:** Provide an interactive and modern user interface for Stellar-based payroll operations.
+- **Features:**
+  - **Interactive Dashboards:** Real-time visualization of transactions and payroll data.
+  - **User-Centric Design:** Clean, responsive interfaces utilizing the Stellar SDK and Freighter wallet for smooth interactions.
+
+---
+
+## Future Stellar Developments
+
+### Off-Ramp Integration
+
 - **Goal:** Enable seamless conversion from crypto to fiat currencies.
-- **Features to Include:**  
-  - **Unified Liquidity Pools:** Integrate with Stellar’s on/off ramp features to improve fiat accessibility.
-  - **Enhanced User Experience:** Simplify the process for employers and employees to convert crypto earnings into local currencies.
-  
-**2. Unified Multi-Token Payroll System**
-- **Goal:** Create a robust, multi-token payroll processing system.
-- **Features to Include:**  
-  - **Integrated Pools and Trading Holds:** Support multi-chain payments by managing unified liquidity pools.
-  - **Expanded Token Support:** Beyond basic tokens, include a wide variety of assets available on Stellar and other supported chains.
-  
-**3. Advanced Analytics & AI-Driven Automation Enhancements**
-- **Goal:** Increase operational efficiency and accuracy in payroll management.
-- **Features to Include:**  
-  - **Real-Time Analytics:** Leverage AI to provide insights on payroll trends, risks, and opportunities.
-  - **Automated Compliance:** Ensure tax and regulatory compliance across jurisdictions.
+- **Planned Features:**
+  - Unified liquidity pools for efficient on/off ramp transactions.
+  - Streamlined user experience for employers and employees converting crypto earnings into local currencies.
 
-### Visual: Future Roadmap for Stellar Integration
+### Unified Multi-Chain Payroll System
+
+- **Goal:** Develop a robust system to handle payroll processing across multiple chains.
+- **Planned Features:**
+  - Integrated liquidity pools and trading holds to support payments across chains.
+  - Expanded token support covering a wide range of assets on Stellar and other networks.
+
+### Advanced Analytics & AI-Driven Automation
+
+- **Goal:** Enhance operational efficiency and ensure regulatory compliance.
+- **Planned Features:**
+  - Real-time analytics powered by AI to provide actionable insights on payroll trends.
+  - Automated compliance mechanisms to ensure adherence to tax and regulatory requirements.
+
+#### Future Roadmap Visual
 
 ```mermaid
 gantt
@@ -107,95 +122,218 @@ gantt
 
 ---
 
-## 🔗 Multi-Chain Evolution
+## Multi-Chain Evolution
 
-Our journey has been multi-chain from the start:
-- **EVM Chains:** Our initial implementation on Ethereum-based chains focused on native transfers and basic logging.
-  
-Now, with Stellar, we are building a superior, stable, and feature-rich payroll system that leverages Stellar’s scalability, security, and efficiency to deliver next-level payroll processing.
+Our journey began on EVM chains with a focus on native transfers and basic logging. With PayZoll, we are now evolving into a superior, feature-rich payroll system built on Stellar—offering unparalleled scalability, security, and efficiency.
 
 ---
 
-## 📜 Prior Project Disclosure
+## Technical Architecture
 
-**Disclosure:**  
-PayZoll has evolved through previous hackathons, including ETH India 2024 and BNB Hack Q4. Earlier iterations focused on EVM Chains with basic features and limited security.
+### Bulk Transfer Flow
 
-### Stellar-Specific Enhancements for This Hackathon
+1. **Data Verification:**  
+   - The contract receives and verifies payroll data (recipients, amounts, etc.).
+2. **Token & Balance Checks:**  
+   - Confirms valid token addresses and verifies sufficient user balances.
+3. **Bulk Sanction & Approval:**  
+   - Validated data is processed in a single transaction, reducing overhead.
+4. **Notification & Status Updates:**  
+   - Final notifications are sent after transaction execution.
 
-- **What’s Built on Stellar:**  
-  - **Bulk Transaction Contracts & Multi-Hop Swap:** New, secure contracts designed specifically for Stellar to optimize payroll processing and token swaps.
-  - **Enhanced Frontend:** A redesigned user interface that better supports Stellar’s features and offers superior user experience.
-  
-- **What’s Coming Next:**  
-  - **Off-Ramp Integration:** Planned to enable crypto-to-fiat conversions by leveraging Stellar’s liquidity features.
-  - **Unified Multi-Token Payroll System:** Future work will include integrated liquidity pools and support for multiple tokens across chains.
-  - **Advanced AI & Analytics:** We aim to further automate compliance and provide deep insights into payroll data.
+*Key Benefits:*  
+- Simplified group transfers in one call.
+- Reduced transaction fees and improved processing speed.
+
+### Swap-Based Pay Flow
+
+1. **Data Verification:**  
+   - Initial verification of payroll data and tokens.
+2. **Token & Balance Checks:**  
+   - Validates user balances and transaction legitimacy.
+3. **Liquidity Check:**  
+   - Ensures sufficient liquidity exists in the decentralized pool for swaps.
+4. **Fund Transfer & Swap Execution:**  
+   - Transfers funds, executes the swap using the liquidity pool, and processes subsequent transfers.
+5. **Notification & Status Updates:**  
+   - Provides real-time status updates post-transaction.
+
+*Key Benefits:*  
+- Leverages a decentralized liquidity pool for optimal token swaps.
+- Maintains a trustless environment with real-time swap feasibility calculations.
 
 ---
 
-## ⚙️ Getting Started Locally
+## Justification for Technical Decisions
 
-### Prerequisites
-- **Node.js:** JavaScript runtime for the frontend.
-- **npm:** Package manager.
-- **Hardhat:** Blockchain development framework.
-- **Rust & Stellar SDK:** For building and deploying secure Stellar contracts.
+- **Bulk Transfer Contract:**  
+  - **Efficiency:** Aggregates multiple transactions to minimize gas costs and streamline operations.
+  - **Reliability:** Utilizes standard, proven protocols to ensure transaction integrity.
 
-### Installation Steps
+- **Swap Pay Contract:**  
+  - **Decentralized Liquidity:** Adopts a unified decentralized pool model, preserving our commitment to a trustless system.
+  - **Flexibility:** Automatically calculates swap feasibility, ensuring valid and secure transactions.
 
-1. **Clone the Repository**
+---
+
+## Team & Expertise
+
+Our team combines deep expertise in blockchain technology and Stellar’s unique architecture:
+
+- **Abhinav:** Web3, end-to-end development, integrations and deployments.
+- **Vaibhav:** Frontend development and UI/UX design.
+
+Our team that works on the EVM products that will work on Stellar Mainnet Development:
+
+- **Sahil Saxena:** Ex-SDE2 at Microsoft, Lead Backend Engineer.
+- **Ayush Gupta:** AI Lead Researcher at University of Strasbourg.
+- **Ayash-Bera:** Lead Web3 Researcher.
+- **Aditi Ghosh:** Lead Frontend Developer.
+
+With a strong foundation in Rust and multi-chain development, our team is well-equipped to build and scale the next-generation payroll system on Stellar.
+
+---
+
+## Deployment & Testing Instructions
+
+### Live Environment
+
+- **Access:**  
+  The site and smart contracts are fully deployed and operational.  
+  Visit our [Live Website](https://payzoll-stellar.onrender.com/)
+
+### Setup Instructions
+
+1. **Install Prerequisites:**  
+   - [Node.js](https://nodejs.org/)  
+   - [npm](https://www.npmjs.com/)   
+   - [Rust & Stellar SDK](https://www.stellar.org/developers/)  
+
+2. **Clone the Repository**
+
    ```bash
-   git clone https://github.com/PayZoll/PayZoll_Hackathon_Build.git
+   https://github.com/PayZoll-Orgs/PayZoll-1.0.0-P2
    ```
-2. **Install Root Dependencies**
+
+3. **Install Root Dependencies**
+
    ```bash
    npm install
    ```
-3. **Setup Frontend**
+
+4. **Setup Frontend**
+
    ```bash
    cd Frontend
    npm install
    ```
-4. **Build and Compile Smart Contracts**
+
+5. **Compile Smart Contracts**
+
    ```bash
-   cd src/blockchain
-   npm install
-   npx hardhat compile
+   cd Frontend/src/Stellar
+   cargo build
    ```
-5. **Launch the Frontend**
+
+6. **Launch the Frontend**
+
    ```bash
-   cd ../..
-   cd Frontend
+   cd ../
    npm run dev
    ```
-6. **Access the Application**
+
+7. **Access the Application:**  
    Open your browser at `http://localhost:5173`
 
----
+### Testing Credentials
 
-## 💰 Revenue Model
+- **Email:** `build@stellar.com`  
+- **Password:** `123456789`
 
-While our Stellar off-ramp feature is scheduled for later development, our current revenue model focuses on:
-1. **Maintenance Fee:** A fixed fee per employee per month.
-2. **Streaming Fee:** A small percentage fee for real-time payroll processing.
-3. **Future Fees:** Additional revenue streams will be introduced with off-ramp and unified multi-token features.
+> **Note:** Ensure your Freighter wallet is funded with the required tokens before testing.
 
----
+#### Required Tokens
 
-## 🤝 Contribute & Join the Revolution
-
-We welcome contributions to further refine and expand PayZoll’s Stellar capabilities. To get involved:
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Commit your changes (`git commit -m "Describe your feature"`).
-4. Push your branch (`git push origin feature/your-feature`).
-5. Open a Pull Request and join us in shaping the future of payroll.
+```plaintext
+native: 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC'
+usdc:   'CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA'
+```
 
 ---
 
-## 🔮 The Future is Stellar with PayZoll
+## Revenue Model
 
-PayZoll is set to redefine payroll processing with its robust, secure, and feature-rich Stellar integration. By building on our multi-chain foundation—initially developed on EVM Chains now focusing on a stable, advanced version on Stellar, we are committed to delivering the best payroll experience in the decentralized era.
+While off-ramp integration is on the roadmap, our current revenue streams include:
 
-**Star us on GitHub** ⭐ | **Fork us** 🍴 | **Join us** 🚀
+1. **Maintenance Fee:**  
+   - A fixed fee per employee per month.
+2. **Streaming Fee:**  
+   - A small percentage fee for real-time payroll processing.
+3. **Future Revenue Streams:**  
+   - Additional fees will be introduced with off-ramp and unified multi-token functionalities.
+
+---
+
+## Contributing
+
+We welcome contributions to further enhance PayZoll. To contribute:
+
+1. **Fork the Repository**
+2. **Create a New Branch**
+
+   ```bash
+   git checkout -b feature/your-feature
+   ```
+
+3. **Commit Your Changes**
+
+   ```bash
+   git commit -m "Add feature: [description]"
+   ```
+
+4. **Push to Your Branch**
+
+   ```bash
+   git push origin feature/your-feature
+   ```
+
+5. **Open a Pull Request**  
+   Join us in shaping the future of decentralized payroll!
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+# Contract Details:
+**TOKEN ISSUER** - GBDY7MPNHO7CB3GTI632X2WMTA5GS4YTKKEJBTGDBFJALCUKGLA2PETK
+
+**CONTRACT**  - CAAX52OHYPSYCUFTEO4FHQL345SYQD6D7JAGSPOFNMXXQJXO6DAHN3QR
+
+**WASM_HASH** - 0ebde7a3d59aa065fb48d9cb48922abab601783216b9733f74071b441bb16a2a
+
+**LIQUIDITY-PROVIDERS**
+
+GBBYTVWHN3BOLR47BZXQ5E3BVUVYC2JFKJSYNWBU3DANZYUKPC2WBLTG,                         GAJ4L7FY72JDCTRLWRAPUCNZJESEJRJPGQNYZRB25AWA4ZIQLNNGET5L, GBKFQIKIJLKD6LXXEF734QXRMWGZJMOKAWAWASTQGYW3GZGJ7Z3AF4PM, GBDY7MPNHO7CB3GTI632X2WMTA5GS4YTKKEJBTGDBFJALCUKGLA2PETK
+
+**Token**
+
+   **native:** 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC',                         
+   **usdc:** 'CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA'
+   
+---
+
+## Contact
+
+For questions or further information, please reach out to us at:
+
+- **Email:** [tech@payzoll.in](mailto:tech@payzoll.in)
+- **GitHub Issues:** Use the repository's issue tracker for bug reports or feature requests.
+
+---
+
+**Star us on GitHub** ⭐ | **Fork us** 🍴 | **Join the Revolution** 🚀
+
+*Empowering global payroll with the power of decentralized technology and Stellar’s robust ecosystem.*
+```
