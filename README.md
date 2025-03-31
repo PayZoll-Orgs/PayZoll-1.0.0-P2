@@ -11,8 +11,24 @@ PayZoll bridges the gap between traditional Web2 payroll systems and next-genera
 - **EVM Chains:** Basic native transfers, simple logging, and limited security.
   
 Now, we are building a more robust and stable version on **Stellar** to fully leverage its advanced blockchain features for secure, bulk, multi-token payroll processing.
+Efficient Rust based contracts that have inherent security and scalability. Client side intraction using the Stellar SDK for ease of experience in the product.
 
 ---
+
+## The Problem
+
+```mermaid
+graph TD;
+    A[Web3 Payroll is Inefficient] --> B[Steep Learning Curve]
+    A --> C[Inefficient Off-Ramps]
+    A --> D[Inaccessibility]
+
+    B -->|Requires extensive crypto knowledge| B1[Tokens, Wallets, Exchanges]
+    C -->|Complex, unreliable, expensive| C1[Crypto to Fiat Conversion]
+    C1 -->|Requires patience & expertise| C2[Exchange Issues]
+    D -->|Intimidating & difficult| D1[Non-Web3 Users Struggle]
+    D1 -->|Complex infrastructures| D2[Exchanges & dApps]
+```
 
 ## 🌟 Current Stellar Integration
 
@@ -27,7 +43,7 @@ Now, we are building a more robust and stable version on **Stellar** to fully le
 **2. Multi-Hop Swap Mechanism**  
 - **Purpose:** Enable optimal conversion of tokens by leveraging Stellar’s Rust SDK.  
 - **Features:**  
-  - **Optimal Routes:** Finds the best conversion path, e.g., from XLM to USDS, ensuring competitive rates.  
+  - **Optimal Routes:** Finds the best conversion path, e.g., from XLM to USDC, ensuring competitive rates.  
   - **Seamless Payroll Operations:** Simplifies cross-currency payroll processing, enhancing user experience.
 
 **3. Enhanced Frontend Experience**  
@@ -35,6 +51,8 @@ Now, we are building a more robust and stable version on **Stellar** to fully le
 - **Features:**  
   - **Interactive Dashboards:** Visualize transactions and payroll data in real time.  
   - **User-Centric Design:** A clean, responsive interface that supports advanced Stellar features.
+  - **Stellar_SDK:** A intuitive and clean usage of the stellar client sdk to have a smooth and efficient interactions with the contract.
+    Utilization of freighter wallets and providers for ease of funds usage and validations.
 
 ### Visual: Current Stellar Architecture
 
