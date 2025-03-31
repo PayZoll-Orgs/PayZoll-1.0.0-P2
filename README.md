@@ -180,8 +180,10 @@ Our journey began on EVM chains with a focus on native transfers and basic loggi
 
 Our team combines deep expertise in blockchain technology and Stellar’s unique architecture:
 
-- **Abhinav:** Web3, end-to-end development, integrations and deployments.
-- **Vaibhav:** Frontend development and UI/UX design.
+- **Abhinav:** Cofounder @PayZoll | B.tech CSE from IIIT Guwahati | End to End Dev@ MERN/ Next, Nest , Blockchain Dev @solidity, move, rust | Contract Audit and Security | Built an e-commerce auction agency and ran for 2 years | SDE Intern @JP Morgan
+
+
+- **Vaibhav:** Founder @PayZoll | B.tech in Computer Science & Engineering from IIIT Guwahati | Proven Entrepreneurial Leader: Successfully managed North-East India operations for an e-commerce startup, leading a team of 100+ and achieving 6-figure monthly sales.
 
 Our team that works on the EVM products that will work on Stellar Mainnet Development:
 
