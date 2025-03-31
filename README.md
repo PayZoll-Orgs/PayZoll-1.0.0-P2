@@ -1,5 +1,7 @@
 
 # PayZoll: The Future of Decentralized Payroll on Stellar 🌍💸
+![Stellar - Pay](https://github.com/user-attachments/assets/44add46c-a07c-4f57-b6e5-07fa232a20f3)
+
 
 Welcome to **PayZoll**, the cutting-edge decentralized payroll platform that harnesses blockchain, AI, and the innovative features of the Stellar ecosystem to revolutionize global payroll processing. Designed for startups and global enterprises alike, PayZoll delivers secure, efficient, and cost-effective payrolls across borders with seamless multi-token support.
 
