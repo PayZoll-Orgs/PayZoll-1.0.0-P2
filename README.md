@@ -8,8 +8,7 @@ Welcome to **PayZoll**, the decentralized payroll platform that leverages blockc
 ## 🚀 Overview
 
 PayZoll bridges the gap between traditional Web2 payroll systems and next-generation Web3 solutions. Our platform has been successfully implemented on multiple chains:
-- **EVM:** Basic native transfers, simple logging, and limited security.
-- **Aptos:** Early experimentation with multi-chain capabilities.
+- **EVM Chains:** Basic native transfers, simple logging, and limited security.
   
 Now, we are building a more robust and stable version on **Stellar** to fully leverage its advanced blockchain features for secure, bulk, multi-token payroll processing.
 
@@ -93,8 +92,7 @@ gantt
 ## 🔗 Multi-Chain Evolution
 
 Our journey has been multi-chain from the start:
-- **EVM:** Our initial implementation on Ethereum-based chains focused on native transfers and basic logging.
-- **Aptos:** Expanded our horizons by experimenting with multi-chain capabilities.
+- **EVM Chains:** Our initial implementation on Ethereum-based chains focused on native transfers and basic logging.
   
 Now, with Stellar, we are building a superior, stable, and feature-rich payroll system that leverages Stellar’s scalability, security, and efficiency to deliver next-level payroll processing.
 
@@ -103,11 +101,11 @@ Now, with Stellar, we are building a superior, stable, and feature-rich payroll 
 ## 📜 Prior Project Disclosure
 
 **Disclosure:**  
-PayZoll has evolved through previous hackathons, including ETH India 2024 and Binance Web3 Build. Earlier iterations focused on EVM and Aptos with basic features and limited security.
+PayZoll has evolved through previous hackathons, including ETH India 2024 and BNB Hack Q4. Earlier iterations focused on EVM Chains with basic features and limited security.
 
 ### Stellar-Specific Enhancements for This Hackathon
 
-- **What’s Already Built on Stellar:**  
+- **What’s Built on Stellar:**  
   - **Bulk Transaction Contracts & Multi-Hop Swap:** New, secure contracts designed specifically for Stellar to optimize payroll processing and token swaps.
   - **Enhanced Frontend:** A redesigned user interface that better supports Stellar’s features and offers superior user experience.
   
@@ -180,6 +178,6 @@ We welcome contributions to further refine and expand PayZoll’s Stellar capabi
 
 ## 🔮 The Future is Stellar with PayZoll
 
-PayZoll is set to redefine payroll processing with its robust, secure, and feature-rich Stellar integration. By building on our multi-chain foundation—initially developed on EVM and Aptos—and now focusing on a stable, advanced version on Stellar, we are committed to delivering the best payroll experience in the decentralized era.
+PayZoll is set to redefine payroll processing with its robust, secure, and feature-rich Stellar integration. By building on our multi-chain foundation—initially developed on EVM Chains now focusing on a stable, advanced version on Stellar, we are committed to delivering the best payroll experience in the decentralized era.
 
 **Star us on GitHub** ⭐ | **Fork us** 🍴 | **Join us** 🚀
